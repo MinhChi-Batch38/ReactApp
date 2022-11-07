@@ -1,0 +1,177 @@
+
+.btn-add {
+    position: absolute;
+    left: 297px;
+    top: 180px;
+    width: 120px;
+    height: 45px;
+    background-color: #3CB371;
+    border: 1px solid #3CB371;
+
+}
+
+.btn-delete {
+    position: absolute;
+    left: 461px;
+    top: 180px;
+    width: 120px;
+    height: 45px;
+    background-color: #d33b3b;
+    border: 1px solid #e42323;
+}
+
+.search {
+    position: absolute;
+    width: 280px;
+    height: 45px;
+    left: 789px;
+    top: 180px;
+    border-radius: 10px 10px 10px 10px !important;
+}
+
+i.search {
+    position: absolute;
+    width: 48px;
+    height: 54px;
+    left: 1039px;
+    top: 196px;
+}
+
+div.home {
+    position: absolute;
+    width: 100%;
+    height: 80px;
+    top: 120px;
+    left: 0px;
+    background-color: aquamarine;
+}
+table,
+th,
+td {
+    border-bottom: 1px solid;
+}
+
+tr,
+td {
+    height: 60px;
+}
+
+input.check-delete {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+
+    position: absolute;
+    width: 37.5px;
+    height: 37.5px;
+    left: 186px;
+    top: 291px;
+
+}
+
+/* table{height:400px;overflow-y:auto;width:941px; position: absolute;
+    width: 941px;
+    height: 400px;
+    left: 185px;
+    top: 281px;} */
+
+#table_wrapper {
+    position: absolute;
+    background: white;
+    border: 1px solid black;
+    left: 185px;
+    top: 281px;
+}
+
+#tbody {
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    width: 941px;
+    height: 400px;
+    
+}
+
+table {
+    position: relative;
+
+    width: 941px;
+}
+
+td {
+    padding: 1px 5px;
+}
+
+.td1 {
+    width: 90px;
+    left: 185px;
+    top: 281px;
+}
+
+.td2 {
+    width: 450px;
+    left: 185px;
+    top: 281px;
+}
+
+.td3 {
+    width: 150px;
+    left: 185px;
+    top: 281px;
+}
+
+.td4 {
+    float: none;
+    left: 185px;
+    top: 281px;
+}
+
+/* optional */
+#header {
+    position: relative;
+    width: 941px;
+    background: #3cb371;
+
+}
+
+#header div {
+    padding: 1px 5px;
+    float: left;
+    border-left: 1px solid black;
+    text-align: center;
+    color: white;
+}
+
+#header #head1 {
+    width: 90px;
+}
+
+/* the same as td1 */
+#header #head2 {
+    width: 450px;
+
+}
+
+#header #head3 {
+    width: 150px;
+
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+
+/* the same as td2 */
+#header #head4 {
+    float: none;
+    top: 281px;
+}
+
+#bottom {
+    position: absolute;
+    width: 943px;
+    height: 100px;
+    border: 1px solid black;
+    left: 185px;
+    top: 710px;
+}

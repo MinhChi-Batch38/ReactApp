@@ -1,9 +1,12 @@
 import "./table.css"
+import useUsers from "../hooks/use/useUsers";
 
 function Home() {
+    const users = useUsers();
+    console.log(users);
     return (
         <div className="container-fluid">
-            <div class="container p border">
+            <div className="container p border">
                 <ul className="nav">
                     <li className="nav-item first">
                         <img className="logo" src={process.env.PUBLIC_URL + '/logo192.png'} alt="avartar"></img>
@@ -13,9 +16,9 @@ function Home() {
                 </ul>
             </div>
             <h2>Table Head Colors</h2>
-            <p>You can use any of the contextual classes to only add a color to the table header:</p>
-            <table class="table table-sm table-bordered">
-                <thead class="table-dark">
+            <p>You can use any of the contextual class to only add a color to the table header:</p>
+            <table className="table table-sm table-bordered">
+                <thead className="table-dark">
                     <tr>
                         <th className="id">Firstname</th>
                         <th>Lastname</th>
@@ -23,21 +26,13 @@ function Home() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
+                   {users &&  users.map((user) => (
+                    <tr key={user.id}>
+                        <td>{user.username}</td>
+                        <td>{user.password}</td>
                     </tr>
-                    <tr>
-                        <td>Mary</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                    </tr>
+                   ))}
+
                 </tbody>
             </table>
 

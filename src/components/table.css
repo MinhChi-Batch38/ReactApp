@@ -1,26 +1,31 @@
+i.user {
+    position: absolute;
+    left: 800px;
+    top: 55px;
+    
 
-.id{
-    width: 15px;
-    border-width: 10px;
-    background-color: aquamarine;
 }
-.p {
-    padding: 1em;
-    max-width: 100%;
-    background-color: aquamarine;
+.user {
+    position: absolute;
+    left: 825px;
+    top: 50px;
 }
-.border {
-    box-sizing: content-box;
+.language {
+    position: absolute;
+left: 893px;
+top: 50px;   
 }
-.logo {
-    width: 30px;
-    height: 30px;
+select {
+    position: absolute;
+    left: 1010px;
+    top: 50px;
 }
-.first {
-    padding-top: 30px;
-    padding-right: 20px;
-    padding-left: 80%;
-}
-::after{
-    padding-left: 10px;
+
+.container {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 120px;
+    background-color: DodgerBlue;
 }

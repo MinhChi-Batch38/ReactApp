@@ -1,0 +1,48 @@
+.check{
+    position: absolute;
+    padding-left: 10px;
+    padding-top: 10px;
+    width: 20px;
+    height: 20px;
+    left: 35px;
+    top: 15px;
+}
+.name-song {
+    position: absolute;
+    left: 110px;
+    top: 5px;
+    width: 450px;
+    font-size: medium;
+}
+.name-song::before {
+    content: "";
+}
+.name-singer {
+    position: absolute;
+    left: 110px;
+    top: 30px;
+    width: 450px;
+    font-size: small;
+}
+
+.genre {
+    position: absolute;
+    left: 600px;
+    width: 150px;
+    top: 20px;
+    font-size: medium;
+}
+
+.actions {
+    position: absolute;
+    left: 750px;
+    top: 20px;
+    font-size: medium;
+}
+.item {
+    position: relative;
+    left: 0px;
+    width: 941px;
+    height: 60px;
+    border-bottom: 1px solid black;
+}

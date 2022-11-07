@@ -1,0 +1,70 @@
+label.total {
+    position: absolute;
+    width: 200px;
+    top: 20px;
+    font-style: oblique;
+    left: 20px;
+    font-size: medium;
+}
+
+label.selected {
+    position: absolute;
+    width: 200px;
+    top: 50px;
+    left: 20px;
+    font-size: medium;
+}
+
+label.page-size {
+    position: absolute;
+    width: 80px;
+    top: 35px;
+    left: 550px;
+    font-size: medium;
+}
+
+select.page {
+    position: absolute;
+    width: 80px;
+    height: 35px;
+    top: 30px;
+    left: 640px;
+}
+
+.pagination {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    align-content: center;
+}
+.previous {
+    position: absolute;
+    width: 40px;
+    height: 35px;
+    left: 760px;
+    top: 5px;
+    text-align: center;
+}
+
+.next {
+    position: absolute;
+    width: 40px;
+    height: 35px;
+    left: 840px;
+    top: 5px;
+}
+
+.pagination:hover:not(.active) {
+    background-color: #ddd;
+}
+
+input.page {
+    position: absolute;
+    width: 40px;
+    height: 35px;
+    top: 30px;
+    left: 800px;
+    text-align: center;
+}

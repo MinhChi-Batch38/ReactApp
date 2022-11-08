@@ -3,7 +3,7 @@ import './Bottom.css'
 function Bottom(props) {
 
     return (
-        <div>
+        <div >
             <label className="total">Total Items: {props.total}</label>
             <label className="selected">Selected Items: {props.selected}</label>
             <label className="page-size">Page size: </label>

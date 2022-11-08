@@ -3,15 +3,18 @@ label.total {
     width: 200px;
     top: 20px;
     font-style: oblique;
-    left: 20px;
+    left: 170px;
     font-size: medium;
+}
+label {
+    color: aliceblue;
 }
 
 label.selected {
     position: absolute;
     width: 200px;
     top: 50px;
-    left: 20px;
+    left: 170px;
     font-size: medium;
 }
 
@@ -19,7 +22,7 @@ label.page-size {
     position: absolute;
     width: 80px;
     top: 35px;
-    left: 550px;
+    left: 855px;
     font-size: medium;
 }
 
@@ -27,8 +30,8 @@ select.page {
     position: absolute;
     width: 80px;
     height: 35px;
-    top: 30px;
-    left: 640px;
+    bottom: 10px;
+    left: 940px;
 }
 
 .pagination {
@@ -43,17 +46,19 @@ select.page {
     position: absolute;
     width: 40px;
     height: 35px;
-    left: 760px;
-    top: 5px;
+    left: 1040px;
+    top: 10px;
     text-align: center;
+    background-color:aliceblue ;
 }
 
 .next {
     position: absolute;
     width: 40px;
     height: 35px;
-    left: 840px;
-    top: 5px;
+    left: 1120px;
+    top: 10px;
+    background-color: aliceblue;
 }
 
 .pagination:hover:not(.active) {
@@ -65,6 +70,6 @@ input.page {
     width: 40px;
     height: 35px;
     top: 30px;
-    left: 800px;
+    left: 1080px;
     text-align: center;
 }

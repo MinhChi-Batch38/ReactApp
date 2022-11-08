@@ -6,12 +6,9 @@ function Home() {
 
   return (
     <div>
-      <div className="home">
-        <button className="btn-add">Add</button>
-        <button className="btn-delete">Delete</button>
-
-        <input className="search" id="keyword" name="keyword" placeholder="Search" />
-        <i className='fas fa-search search'></i>
+      <div className="nav-bar">
+        <button className="btn-add"><i class="fa-solid fa-plus fa-2x add"></i></button>
+        <button className="btn-delete"><i class="fa-solid fa-trash fa-2x delete"></i></button>
       </div>
       <div id="table_wrapper">
         <div id="header">
@@ -37,7 +34,7 @@ function Home() {
           </table>
         </div>
       </div>
-      <div id="bottom">
+      <div className="bottom">
         <Bottom
           total={2}
           selected={0}

@@ -1,0 +1,97 @@
+div.now-playing-bar {
+    position: absolute;
+    display: block;
+    bottom: 0px;
+    width: 100%;
+    height: 70px;
+    z-index: 100;
+    background-color: #170f23;
+}
+
+div.play {
+    position: absolute;
+    display: block;
+    width: 40%;
+    left: 30%;
+    top: 0px;
+    background-color: #170f23;
+}
+
+.player-controls__player-bar .actions {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+}
+.zm-btn {
+    cursor: pointer;
+}
+button {
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    word-break: normal;
+}
+.player-controls .zm-tooltip-btn {
+    margin: 0 2px;
+    border: none;
+    color: #fff;
+}
+.is-hover-circle {
+    padding: 3px;
+}
+.icon {
+    font-size: 20px;
+    color: aliceblue;
+}
+.icon-play {
+    font-size: 25px;
+    color: aliceblue;
+}
+.icon {
+    line-height: 80%;
+    display: inline-block;
+    
+}
+.btn-pre {
+    position: absolute;
+    top: 10px;
+    left: 150px;
+}
+.btn-play {
+    position: absolute;
+    top: 10px;
+    left: 200px;
+}
+.btn-next {
+    position: absolute;
+    top: 10px;
+    left: 255px;
+}
+div.progress-bar {
+    position: absolute;
+    width: 30%;
+    left: 400px;
+    height: 4px;
+    top: 50px;
+}
+
+
+.time-left {
+    position: absolute;
+    text-align: right;
+    left: 350px;
+    top:41px;
+    color: #fff
+}
+.time-right {
+    margin-left: 10px;
+    position: absolute;
+    text-align: right;
+    left: 785px;
+    top:41px;
+    color: #fff
+}
+

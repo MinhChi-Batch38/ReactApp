@@ -36,3 +36,34 @@
     transform: rotate(360deg);
   }
 }
+
+div.header {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: 120px;
+  width: 100%;
+}
+
+div.content {
+  position: absolute;
+  left: 0px;
+  top: 120px;
+  width: 100%;
+}
+
+div.playing-song {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 70px;
+
+}
+
+div.app-container {
+  position: absolute;
+  background-color: #34224f;
+  height: 100%;
+  width: 100%;
+  display: block;
+}

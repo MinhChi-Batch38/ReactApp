@@ -1,0 +1,39 @@
+label.login {
+    position: absolute;
+    font-size: xx-large;
+    top: 10px;
+    left: 50px;
+}
+
+input.username {
+    position: absolute;
+    left: 200px;
+    top: 50px;
+}
+input.username::before{
+    content: 'Username:';
+    padding: 10px;
+    font-size: large;
+    color: aliceblue;
+}
+input.password {
+    position: absolute;
+    left: 200px;
+    top: 100px;
+}
+input.password::before{
+    content: 'Password:';
+    padding: 10px;
+    font-size: large;
+    color: aliceblue;
+}
+.login-link {
+    position: absolute;
+    left: 300px;
+    top: 150px;
+    width: 80px;
+    font-size: large;
+    background-color: rgb(26, 241, 91);
+    color: white;
+    text-align: center;
+}

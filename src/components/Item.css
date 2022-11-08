@@ -9,40 +9,64 @@
 }
 .name-song {
     position: absolute;
-    left: 110px;
+    left: 125px;
     top: 5px;
     width: 450px;
     font-size: medium;
 }
-.name-song::before {
-    content: "";
+i.name-song{
+    position: absolute;
+    left: 100px;
+    top: 8px;
+    color: aliceblue;
 }
 .name-singer {
     position: absolute;
-    left: 110px;
+    left: 125px;
     top: 30px;
     width: 450px;
     font-size: small;
 }
-
+i.name-singer{
+    position: absolute;
+    left: 100px;
+    top: 35px;
+    color: aliceblue;
+}
+i.playing {
+    position: absolute;
+    left: 650px;
+    top: 17px;
+    color: aliceblue;
+}
 .genre {
     position: absolute;
-    left: 600px;
+    left: 700px;
     width: 150px;
-    top: 20px;
+    top: 10px;
     font-size: medium;
 }
 
-.actions {
+.actions-play {
     position: absolute;
-    left: 750px;
-    top: 20px;
+    left: 875px;
+    top: 10px;
+    font-size: medium;
+}
+.actions-edit {
+    position: absolute;
+    left: 925px;
+    top: 10px;
     font-size: medium;
 }
 .item {
     position: relative;
     left: 0px;
-    width: 941px;
+    width: 1024px;
     height: 60px;
-    border-bottom: 1px solid black;
+    border-bottom: 0.05px solid whitesmoke;
+}
+
+.item:hover {
+    background-color: #170f23;
 }

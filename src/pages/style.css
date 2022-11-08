@@ -1,40 +1,29 @@
 
 .btn-add {
     position: absolute;
-    left: 297px;
-    top: 180px;
-    width: 120px;
+    left: 70px;
+    top: 100px;
+    width: 60px;
     height: 45px;
-    background-color: #3CB371;
-    border: 1px solid #3CB371;
+    background: transparent;
+    border-color: white;
 
+}
+i.add {
+    color: aliceblue;
+}
+i.delete {
+    color: aliceblue;
 }
 
 .btn-delete {
     position: absolute;
-    left: 461px;
+    left: 70px;
     top: 180px;
-    width: 120px;
+    width: 60px;
     height: 45px;
-    background-color: #d33b3b;
-    border: 1px solid #e42323;
-}
-
-.search {
-    position: absolute;
-    width: 280px;
-    height: 45px;
-    left: 789px;
-    top: 180px;
-    border-radius: 10px 10px 10px 10px !important;
-}
-
-i.search {
-    position: absolute;
-    width: 48px;
-    height: 54px;
-    left: 1039px;
-    top: 196px;
+    background-color: transparent;
+    border-color: white;
 }
 
 div.home {
@@ -43,7 +32,6 @@ div.home {
     height: 80px;
     top: 120px;
     left: 0px;
-    background-color: aquamarine;
 }
 table,
 th,
@@ -78,18 +66,18 @@ input.check-delete {
 
 #table_wrapper {
     position: absolute;
-    background: white;
+    background: transparent;
     border: 1px solid black;
-    left: 185px;
-    top: 281px;
+    left: 170px;
+    top: 100px;
 }
 
 #tbody {
     overflow-y: auto;
     overflow-x: hidden;
     position: relative;
-    width: 941px;
-    height: 400px;
+    width: 1024px;
+    height: 500px;
     
 }
 
@@ -130,34 +118,35 @@ td {
 /* optional */
 #header {
     position: relative;
-    width: 941px;
-    background: #3cb371;
-
+    width: 100%;
+    background: rgba(41,21,71,0.8);
+    height: 45px;
+    border-bottom: 1px white;
 }
 
 #header div {
     padding: 1px 5px;
     float: left;
-    border-left: 1px solid black;
     text-align: center;
     color: white;
+    
 }
 
 #header #head1 {
     width: 90px;
+    font-size: medium;
 }
 
 /* the same as td1 */
 #header #head2 {
-    width: 450px;
+    width: 550px;
+    font-size: medium;
 
 }
 
 #header #head3 {
     width: 150px;
-
-    border-left: 1px solid black;
-    border-right: 1px solid black;
+    font-size: medium;
 }
 
 
@@ -165,13 +154,25 @@ td {
 #header #head4 {
     float: none;
     top: 281px;
+    font-size: medium;  
 }
 
-#bottom {
+div.bottom {
     position: absolute;
-    width: 943px;
+    width: 100%;
     height: 100px;
-    border: 1px solid black;
-    left: 185px;
-    top: 710px;
+    display: block;
+    left: 0px;
+    top: 0px;
+    background-color: #34224f;
+}
+
+div.nav-bar {
+    position: absolute;
+    background-color: black;
+    display: block;
+    width: 170px;
+    height: 100%;
+    left: 0px;
+    top: 0px;
 }

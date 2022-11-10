@@ -1,27 +1,44 @@
 import "./Login.css"
-import { Link } from "react-router-dom"
+//import { redirect } from "react-router-dom"
+import {httpGetUserByUsernameAndPassword} from '../hooks/requests/demo.js'
+import {useState} from 'react'
+import { useNavigate } from "react-router-dom"
+import audio from '../sounds/RollingInTheDeep.mp3'
 
+export const SESSION_USER = 'user'
 
 function Login() {
-
-    const user = {username: '', password: ''}
-    const login = () => {
-
+    const navigate = useNavigate()
+    const [user, setUser] = useState({})
+    const login =  async () => {
+        const check = await httpGetUserByUsernameAndPassword(user)
+        if (!check) {
+            return alert("Username or Password is invalid!")
+        }
+        sessionStorage.setItem(SESSION_USER, JSON.stringify(user))
+        navigate('/home');
     }
     return (
         <div>
-            <form onSubmit="/home">
+            <audio controls autoPlay>
+                <source src={audio} type="audio/mpeg"/>
+            </audio>
             <label className="login">Login</label>
             <input type="text" className="username" id="username" 
-                onChange={e => {user.username=e.target.value}}
+                onChange={e => setUser((pre) => {
+                    pre.username = e.target.value
+                    return pre
+                })}
                 placeholder="Username"
             />
             <input type="text" className="password" id="password"
-                onChange={e => {user.password=e.target.value}}
+                onChange={e => setUser((pre) => {
+                    pre.password = e.target.value
+                    return pre
+                })}
                 placeholder="Password"
             />
-            <Link to={'/home'} className="login-link">Login</Link>
-            </form>
+            <button className="login-link" onClick={login}>Login</button>
         </div>
     )
 }

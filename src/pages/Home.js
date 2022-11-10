@@ -1,9 +1,13 @@
 import "./style.css"
 import Item from "../components/Item";
 import Bottom from "../components/Bottom";
+//import {httpGetUsers} from "../hooks/requests/demo.js"
+import useUsers from "../hooks/use/useUsers";
+
 
 function Home() {
 
+  const users = useUsers()
   return (
     <div>
       <div className="nav-bar">
@@ -21,15 +25,19 @@ function Home() {
         </div>
         <div id="tbody">
           <table>
+            {users && users.map(user => (
+              <tr key={user.id}>
+              <Item
+                nameSong={user.username}
+                nameSinger={user.password}/>
+            </tr>
+            ))}
             <tr>
               <Item
                 nameSong="Head in the cloud"
                 nameSinger="Hayd"
                 genre="Pop"
                 actions="Play" />
-            </tr>
-            <tr>
-              <Item />
             </tr>
           </table>
         </div>

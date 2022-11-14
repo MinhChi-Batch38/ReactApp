@@ -3,7 +3,7 @@ label.total {
     width: 200px;
     top: 20px;
     font-style: oblique;
-    left: 170px;
+    left: 0px;
     font-size: medium;
 }
 label {
@@ -14,7 +14,7 @@ label.selected {
     position: absolute;
     width: 200px;
     top: 50px;
-    left: 170px;
+    left: 0px;
     font-size: medium;
 }
 
@@ -22,7 +22,7 @@ label.page-size {
     position: absolute;
     width: 80px;
     top: 35px;
-    left: 855px;
+    left: 685px;
     font-size: medium;
 }
 
@@ -31,7 +31,7 @@ select.page {
     width: 80px;
     height: 35px;
     bottom: 10px;
-    left: 940px;
+    left: 770px;
 }
 
 .pagination {
@@ -46,7 +46,7 @@ select.page {
     position: absolute;
     width: 40px;
     height: 35px;
-    left: 1040px;
+    left: 870px;
     top: 10px;
     text-align: center;
     background-color:aliceblue ;
@@ -56,7 +56,7 @@ select.page {
     position: absolute;
     width: 40px;
     height: 35px;
-    left: 1120px;
+    left: 950px;
     top: 10px;
     background-color: aliceblue;
 }
@@ -70,6 +70,6 @@ input.page {
     width: 40px;
     height: 35px;
     top: 30px;
-    left: 1080px;
+    left: 910px;
     text-align: center;
 }

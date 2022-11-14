@@ -4,7 +4,6 @@ import "./table.css"
 
 function Head() {
     const user = JSON.parse(sessionStorage.getItem(SESSION_USER))
-    console.log(user.username)
     return (
         <div className="container">
             <i className="fa-brands fa-soundcloud fa-4x logo" style={{width:100, height: 50}}></i>

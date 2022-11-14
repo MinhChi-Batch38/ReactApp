@@ -31,5 +31,5 @@ async function httpGetUserByUsernameAndPassword(user) {
 
 export {
     httpGetUsers,
-    httpGetUserByUsernameAndPassword
+    httpGetUserByUsernameAndPassword,
 };

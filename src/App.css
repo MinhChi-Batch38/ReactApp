@@ -50,15 +50,10 @@ div.content {
   left: 0px;
   top: 120px;
   width: 100%;
+  height: 90%;
 }
 
-div.playing-song {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 70px;
 
-}
 
 div.app-container {
   position: absolute;

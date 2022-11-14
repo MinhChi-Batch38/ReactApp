@@ -2,14 +2,20 @@ import "./style.css"
 import Item from "../components/Item";
 import Bottom from "../components/Bottom";
 //import {httpGetUsers} from "../hooks/requests/demo.js"
-import useUsers from "../hooks/use/useUsers";
+import useSongs from "../hooks/use/useSongs";
+import { useState } from "react";
+import Play from "../components/Play";
 
 
 function Home() {
 
-  const users = useUsers()
+  const songs =  useSongs()
+  const [audio, setAudio] = useState({})
+  const handlePlayAudio = (audio) => {
+    setAudio(audio);
+  }
   return (
-    <div>
+    <div> 
       <div className="nav-bar">
         <button className="btn-add"><i class="fa-solid fa-plus fa-2x add"></i></button>
         <button className="btn-delete"><i class="fa-solid fa-trash fa-2x delete"></i></button>
@@ -25,20 +31,13 @@ function Home() {
         </div>
         <div id="tbody">
           <table>
-            {users && users.map(user => (
-              <tr key={user.id}>
+            {songs && songs.map(song => (
+              <tr key={song.id}>
               <Item
-                nameSong={user.username}
-                nameSinger={user.password}/>
+                song = {song}
+                onClick={handlePlayAudio}/>
             </tr>
             ))}
-            <tr>
-              <Item
-                nameSong="Head in the cloud"
-                nameSinger="Hayd"
-                genre="Pop"
-                actions="Play" />
-            </tr>
           </table>
         </div>
       </div>
@@ -47,6 +46,10 @@ function Home() {
           total={2}
           selected={0}
         />
+      </div>
+      <div className='playing-song'>
+        <Play audio={audio.link}
+        song={audio.name}/>
       </div>
     </div>
   );

@@ -9,15 +9,31 @@ div.now-playing-bar {
     top: 10px;
 }
 .center {
-    position: absolute;
-    width: 100%;
-    left: 300px;
+    position: relative;
+    width: 70%;
+    top: 10px;
+    left: 250px;
 }
 
 label.song {
     position: absolute;
-    left: 20px;
+    left: 50px;
     top: 10px;
+    font-size: medium;
+    font-weight: 400;
+}
+label.singer {
+    position: absolute;
+    left: 50px;
+    top: 35px;
+    font-size: small;
+    font-weight: 400;
+}
+i.play-song {
+    position: absolute;
+    left: 10px;
+    top: 20px;
+    color: aqua;
 }
 
 /* div.play {

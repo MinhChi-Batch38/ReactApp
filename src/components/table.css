@@ -30,6 +30,7 @@ i.logo {
     left: 50px;    
     top: 20px;
     color: aliceblue;
+    cursor: pointer;
 }
 
 .container {

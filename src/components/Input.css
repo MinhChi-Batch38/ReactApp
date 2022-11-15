@@ -1,0 +1,16 @@
+label.title {
+    position: absolute;
+    top: 15px;
+    left: 130px;
+    width: auto;
+    font-size: large;
+    color: black;
+}
+input.song {
+    position: absolute;
+    left: 200px;
+    top: 10px;
+    width: 300px;
+    height: 40px;
+    
+}

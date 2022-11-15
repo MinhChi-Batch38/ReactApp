@@ -1,13 +1,7 @@
 import './Play.css'
-// import { useState } from 'react'
 
-function Play(props) {
-    // const [played, setPlayed] = useState(true)
-    // const handleOnClick = () => {
-    //     setPlayed(pre => {
-    //         return !pre;
-    //     });
-    // }
+function Play({audio, song, singer}) {
+    console.log(audio)
     return (
         <div className="now-playing-bar">
             {/* <div className="play">
@@ -31,10 +25,12 @@ function Play(props) {
             </div>
             <span className='time-left'>00:14</span>
             <span className='time-right'>04:03</span> */}
-            <label className='song'>{props.song}</label>
-            {props.audio && <audio controls autoPlay className='center'>
-                <source src={props.audio} type="audio/mpeg"/>
-            </audio>}
+            {audio && (<div><i className="play-song fa-solid fa-compact-disc fa-spin fa-2x"></i>
+            <label className='song'>{song}</label>
+            <label className='singer'>{singer}</label>
+            <audio controls autoPlay className='center'>
+                <source src={audio} type="audio/mpeg"/>
+            </audio></div>)}
         </div>
     )
 }

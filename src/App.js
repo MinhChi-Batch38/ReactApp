@@ -4,6 +4,7 @@ import Head from './components/Head';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import AddSong from './pages/AddSong';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path='/' element={<Login />} />,
           <Route path='/login' element={<Login />} />,
           <Route path="/home" element={<Home/>} />,
+          <Route path="/add" element={<AddSong/>} />,
       </Routes>
         
       </div>

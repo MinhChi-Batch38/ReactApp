@@ -22,19 +22,21 @@ async function httpUpload(audio) {
 }
 
 async function httpAddSong(song) {
-    const link = await httpUpload(song.link)
-    if (link!=="Unsuccessfully Uploaded!")
-    {
-        song.link = link
-        const res = await axios.post(`${API_URL}/songs/add-song`, {
-            song: song
-        })
+    try {
+        const res = await axios.post(`${API_URL}/songs/add-song `, song)
         return await res.data
+    }catch (err) {
+        console.log(err)
+        return "404"
     }
-    return "404"
+        
+    
+    
+    
 }
 
 export {
     httpGetAllSongs,
     httpAddSong,
+    httpUpload
  };

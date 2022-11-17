@@ -1,56 +1,67 @@
 import './AddSong.css'
 import Input from '../components/Input'
-import {httpAddSong} from '../hooks/requests/song'
+import { httpAddSong, httpUpload } from '../hooks/requests/song'
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
 
 function AddSong() {
     var song = {}
     const handleOnChange = (title, value) => {
-        if (title==="Song") {
+        if (title === "Song") {
             song.name = value
         }
-        if (title==="Singer") {
+        if (title === "Singer") {
             song.singer = value
         }
-        if (title==="Genre") {
+        if (title === "Genre") {
             song.genre = value
         }
-        if (title==="Audio") {
+        if (title === "Audio") {
             song.link = value
-            console.log(song.link)
+
         }
     }
     const handleOnSubmit = async () => {
-        if (!song.name || !song.singer || !song.genre || !song.link) {
+        console.log(song.link)
+        if (!song.link) {
             alert("Please provide all elements")
             return
-        } 
-        const res = await httpAddSong(song);
-        console.log(res)
+        }
+        const link = await httpUpload(song.link);
+        console.log(link)
+        if (link !== "Unsuccessfully Uploaded!") {
+            song.link = link
+            const res = await httpAddSong(song)
+            console.log(res)
+        }
+
     }
-    
+
     return (
         <div>
-            
             <label className='add-song'>Add Song</label>
-            <form className='form-add' onSubmit={handleOnSubmit}>
+            <div className='form-add'>
             <div className='name'>
-                <Input title="Song" name="name" onChange={handleOnChange}/>
+                <Input title="Song" name="name" onChange={handleOnChange} />
             </div>
             <div className='singer'>
-                <Input title="Singer" name="singer" onChange={handleOnChange}/>
+                <Input title="Singer" name="singer" onChange={handleOnChange} />
             </div>
             <div className='genre'>
-                <Input title="Genre" name="genre" onChange={handleOnChange}/>
+                <Input title="Genre" name="genre" onChange={handleOnChange} />
             </div>
             <div className='audio'>
-                <Input title="Audio" name="link" type="file" onChange={handleOnChange}/>
+                <Input title="Audio" name="link" type="file" onChange={handleOnChange} />
             </div>
             <div className='submit'>
-                <input type="submit" value="Add" className="submit"/>
+                {/* <button className="submit" onClick={handleOnSubmit}>Add</button>
+                 */}
+                <Button variant="contained" endIcon={<SendIcon />} onClick={handleOnSubmit}>
+                    Add
+                </Button>
             </div>
-            <div className='choose-audio'>
             </div>
-            </form>
         </div>
     )
 }

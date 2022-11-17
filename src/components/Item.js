@@ -1,5 +1,6 @@
 import "./Item.css"
 import {useState, useEffect} from 'react'
+import {Link} from 'react-router-dom'
 
 
 function Item({song, onPlay, ...props}) {
@@ -35,7 +36,7 @@ function Item({song, onPlay, ...props}) {
                 <label className="genre">{song.genre}</label>
                 {play || <label className="actions-play" onClick={handleOnPlay}><i class="fa-solid fa-play"></i></label>}
                 {play && <label className="actions-play" onClick={handleOnPause}><i class="fa-solid fa-pause"></i></label>}
-                <label className="actions-edit"><i class="fa-solid fa-pen-to-square"></i></label> 
+                <Link to={{pathname:"/edit", state:{audio: song}}} ><label className="actions-edit"><i class="fa-solid fa-pen-to-square"></i></label> </Link>
             </div>
     );
 }

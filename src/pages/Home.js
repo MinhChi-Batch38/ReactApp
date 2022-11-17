@@ -6,6 +6,11 @@ import useSongs from "../hooks/use/useSongs";
 import { useState } from "react";
 import Play from "../components/Play";
 import {Link} from 'react-router-dom'
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 function Home() {
@@ -21,8 +26,18 @@ function Home() {
   return (
     <div> 
       <div className="nav-bar">
-        <Link className="btn-add" to='/add'><i class="fa-solid fa-plus fa-2x add"></i></Link>
-        <button className="btn-delete"><i class="fa-solid fa-trash fa-2x delete"></i></button>
+        <Link className="btn-add" to='/add'>
+          <Box sx={{ '& > :not(style)': { m: 1 } }}>
+            <Fab color="primary" aria-label="add">
+              <AddIcon />
+            </Fab>
+          </Box>
+        </Link>
+          <Box sx={{ '& > :not(style)': { m: 1 } }} className="btn-delete">
+            <Fab color="secondary" aria-label="delete">
+              <DeleteIcon />
+            </Fab>
+          </Box>
       </div>
       <div id="table_wrapper">
         <div id="header">

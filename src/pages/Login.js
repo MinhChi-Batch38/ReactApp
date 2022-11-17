@@ -3,7 +3,6 @@ import "./Login.css"
 import {httpGetUserByUsernameAndPassword} from '../hooks/requests/demo.js'
 import {useState} from 'react'
 import { useNavigate } from "react-router-dom"
-import audio from '../sounds/RollingInTheDeep.mp3'
 
 export const SESSION_USER = 'user'
 
@@ -20,9 +19,6 @@ function Login() {
     }
     return (
         <div>
-            <audio controls autoPlay>
-                <source src={audio} type="audio/mpeg"/>
-            </audio>
             <label className="login">Login</label>
             <input type="text" className="username" id="username" 
                 onChange={e => setUser((pre) => {

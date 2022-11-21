@@ -17,6 +17,7 @@ function Item({song, onPlay, ...props}) {
         onPlay({})
     }
     const handleOnCheck = () => {
+        check===false?props.onChecked(song):props.onUnChecked(song)
         setCheck(pre=>!pre)
     }
     useEffect(()=> {

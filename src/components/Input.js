@@ -3,7 +3,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-function Input({title, name, type, onChange}){
+function Input({title, name, type, value, onChange}){
 
     return (
         <div>
@@ -15,7 +15,7 @@ function Input({title, name, type, onChange}){
             <input className='song' type={type} id={name} name={name} onChange={(e)=>onChange(title, e.target.value) } required/>
             } */}
             {type==="file" ? 
-            <input type={type} id={name} name={name} accept="audio/mpeg" onChange={(e)=>onChange(title, e.target.files[0])} require="true"/> :
+            <input type={type} id={name} name={name} accept="audio/mpeg" onChange={(e)=>onChange(title, e.target.files[0])} value={value} require="true"/> :
             <Box
                 sx={{
                     width: 500,

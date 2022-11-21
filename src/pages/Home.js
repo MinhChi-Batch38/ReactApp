@@ -11,18 +11,34 @@ import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+//import { httpGetAllSongs } from "../hooks/requests/song";
 
 
 function Home() {
   const songs =  useSongs()
+  
+  const [deleteSongs, setDeleteSongs] = useState([])
   const [audio, setAudio] = useState({})
   const [check, setCheck] = useState(false)
   const handlePlayAudio = (audio) => {
     setAudio(audio);
   }
   const handleOnCheck = () => {
+    check===false?setDeleteSongs(songs):setDeleteSongs([])
     setCheck(pre=>!pre)
   }
+  const handleOnItemCheck = (song) => {
+    setDeleteSongs(pre => {
+      return [...pre, song]
+    })
+  }
+  const handleOnItemUnCheck = (song) => {
+    setDeleteSongs(pre => {
+      const index = pre.indexOf(song)
+      console.log(index)
+    })
+  }
+  console.log(deleteSongs)
   return (
     <div> 
       <div className="nav-bar">
@@ -56,11 +72,15 @@ function Home() {
                 song = {song}
                 onPlay={handlePlayAudio}
                 checked={check}
+                onChecked={handleOnItemCheck}
+                onUnChecked={handleOnItemUnCheck}
                 play={true}/>:
                 <Item
                 song = {song}
                 onPlay={handlePlayAudio}
                 checked={check}
+                onChecked={handleOnItemCheck}
+                onUnChecked={handleOnItemUnCheck}
                 play={false}/>}
             </tr>
             ))}

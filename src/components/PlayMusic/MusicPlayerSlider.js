@@ -12,7 +12,7 @@ import FastRewindRounded from '@mui/icons-material/FastRewindRounded';
 import VolumeUpRounded from '@mui/icons-material/VolumeUpRounded';
 import VolumeDownRounded from '@mui/icons-material/VolumeDownRounded';
 import './MusicPlayerSlider.css'
-import { useLocation } from "react-router-dom"
+//import { useLocation } from "react-router-dom"
 
 const WallPaper = styled('div')({
   position: 'absolute',
@@ -80,9 +80,7 @@ const TinyText = styled(Typography)({
 });
 
 export default function MusicPlayerSlider() {
-  const location = useLocation()
-  const editSong = location.state?.audio;
-  console.log(editSong)
+  //const location = useLocation()
   const theme = useTheme();
   const duration = 200; // seconds
   const [position, setPosition] = React.useState(32);
@@ -107,7 +105,7 @@ export default function MusicPlayerSlider() {
               Jun Pulse
             </Typography>
             <Typography noWrap>
-              <b>{editSong.name}</b>
+              <b>rrerewrwe</b>
             </Typography>
             <Typography noWrap letterSpacing={-0.25}>
               Chilling Sunday &mdash; คนเก่าเขาทำไว้ดี

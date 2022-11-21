@@ -3,11 +3,11 @@ import { useCallback, useEffect, useState } from "react";
 import { httpGetAllSongs } from "../requests/song";
 
 function useSongs() {
-  const [songs, setUsers] = useState([]);
+  const [songs, setSongs] = useState([]);
 
   const getSongs = useCallback(async () => {
     const fetchedSongs = await httpGetAllSongs();
-    setUsers(fetchedSongs);
+    setSongs(fetchedSongs);
   }, []);
 
   useEffect(() => {

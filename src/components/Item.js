@@ -1,10 +1,12 @@
 import "./Item.css"
 import {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
+import { useDispatch } from "react-redux"
 
 
 function Item({song, onPlay, ...props}) {
-    
+    //const audio = useSelector(state => state.audio)
+    const dispatch = useDispatch()
     const [play, setPlay] = useState(props.play)
     const [check, setCheck] = useState(props.checked)
     const handleOnPlay = async () => {
@@ -37,7 +39,7 @@ function Item({song, onPlay, ...props}) {
                 <label className="genre">{song.genre}</label>
                 {play || <label className="actions-play" onClick={handleOnPlay}><i class="fa-solid fa-play"></i></label>}
                 {play && <label className="actions-play" onClick={handleOnPause}><i class="fa-solid fa-pause"></i></label>}
-                <Link to={{pathname:"/edit", state:{audio: song}}} ><label className="actions-edit"><i class="fa-solid fa-pen-to-square"></i></label> </Link>
+                <Link to={{pathname:"/edit"}} onClick={()=>dispatch({"type": "select", "audio": song})}><label className="actions-edit"><i class="fa-solid fa-pen-to-square"></i></label> </Link>
             </div>
     );
 }

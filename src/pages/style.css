@@ -76,8 +76,8 @@ input.check-delete {
     overflow-y: auto;
     overflow-x: hidden;
     position: relative;
-    width: 1024px;
-    height: 500px;
+    width: 100%;
+    height: 80%;
     
 }
 

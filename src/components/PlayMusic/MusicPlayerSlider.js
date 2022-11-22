@@ -12,6 +12,7 @@ import FastRewindRounded from '@mui/icons-material/FastRewindRounded';
 import VolumeUpRounded from '@mui/icons-material/VolumeUpRounded';
 import VolumeDownRounded from '@mui/icons-material/VolumeDownRounded';
 import './MusicPlayerSlider.css'
+import { useSelector } from 'react-redux';
 //import { useLocation } from "react-router-dom"
 
 const WallPaper = styled('div')({
@@ -79,12 +80,29 @@ const TinyText = styled(Typography)({
   letterSpacing: 0.2,
 });
 
+
+
 export default function MusicPlayerSlider() {
   //const location = useLocation()
+  const song = useSelector(state => state.audio)
+  const [audio, setAudio] = React.useState()
+  React.useEffect(() => {
+    setAudio(new Audio(song.link))
+  }, [song, audio])
+  //audio.load()
+  const duration = 200;
   const theme = useTheme();
-  const duration = 200; // seconds
   const [position, setPosition] = React.useState(32);
-  const [paused, setPaused] = React.useState(false);
+  const [paused, setPaused] = React.useState(true);
+  const handleOnPlayAudio = () => {
+    audio.play()
+    setPaused(pre => !pre)
+  }
+  const handleOnPausedAudio = () => {
+    audio.pause()
+    setPaused(pre => !pre)
+  }
+  
   function formatDuration(value) {
     const minute = Math.floor(value / 60);
     const secondLeft = value - minute * 60;
@@ -102,10 +120,10 @@ export default function MusicPlayerSlider() {
           </CoverImage>
           <Box sx={{ ml: 1.5, minWidth: 0 }}>
             <Typography variant="caption" color="text.secondary" fontWeight={500}>
-              Jun Pulse
+              {song.singer}
             </Typography>
             <Typography noWrap>
-              <b>rrerewrwe</b>
+              <b>{song.name}</b>
             </Typography>
             <Typography noWrap letterSpacing={-0.25}>
               Chilling Sunday &mdash; คนเก่าเขาทำไว้ดี
@@ -118,7 +136,7 @@ export default function MusicPlayerSlider() {
           value={position}
           min={0}
           step={1}
-          max={duration}
+          max={200}
           onChange={(_, value) => setPosition(value)}
           sx={{
             color: theme.palette.mode === 'dark' ? '#fff' : 'rgba(0,0,0,0.87)',
@@ -171,7 +189,7 @@ export default function MusicPlayerSlider() {
           </IconButton>
           <IconButton
             aria-label={paused ? 'play' : 'pause'}
-            onClick={() => setPaused(!paused)}
+            onClick={paused ? handleOnPlayAudio : handleOnPausedAudio}
           >
             {paused ? (
               <PlayArrowRounded

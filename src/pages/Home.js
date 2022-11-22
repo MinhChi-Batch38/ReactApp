@@ -2,7 +2,7 @@ import "./style.css"
 import Item from "../components/Item";
 import Bottom from "../components/Bottom";
 //import {httpGetUsers} from "../hooks/requests/demo.js"
-import useSongs from "../hooks/use/useSongs";
+//import useSongs from "../hooks/use/useSongs";
 import { useState } from "react";
 import Play from "../components/Play";
 import {Link} from 'react-router-dom'
@@ -12,10 +12,11 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 //import { httpGetAllSongs } from "../hooks/requests/song";
+import songs from "../model/songs";
 
 
 function Home() {
-  const songs =  useSongs()
+  //const songs =  useSongs()
   
   const [deleteSongs, setDeleteSongs] = useState([])
   const [audio, setAudio] = useState({})

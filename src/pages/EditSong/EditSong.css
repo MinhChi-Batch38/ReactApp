@@ -1,0 +1,40 @@
+.edit-page {
+    background-color: #fff;
+}
+.music-player {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* top: 20px;
+    left: 40%; */
+}
+.form-edit-song {
+    position: relative;
+    top: 300px;
+    left: 30%;
+    width: fit-content;
+    background-color: rgba(255,255,255,0.4);
+}
+.item-item {
+    padding: 20px;
+}
+
+.submit-btn {
+    position: relative;
+    padding: 20px;
+}
+
+.btn-cancel {
+    margin-left: 200px;
+}
+
+.btn-edit {
+    margin-left: 300px;
+}
+
+#btn-cancel {
+    margin-left: 300px;
+}
+#btn-edit {
+    margin-left: 20px;
+}

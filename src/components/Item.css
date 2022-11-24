@@ -9,27 +9,27 @@
 }
 .name-song {
     position: absolute;
-    left: 125px;
+    left: 120px;
     top: 5px;
     width: 450px;
     font-size: medium;
 }
 i.name-song{
     position: absolute;
-    left: 100px;
+    left: 95px;
     top: 8px;
     color: aliceblue;
 }
 .name-singer {
     position: absolute;
-    left: 125px;
+    left: 120px;
     top: 30px;
     width: 450px;
     font-size: small;
 }
 i.name-singer{
     position: absolute;
-    left: 100px;
+    left: 95px;
     top: 35px;
     color: aliceblue;
 }
@@ -62,9 +62,10 @@ i.playing {
 .item {
     position: relative;
     left: 0px;
-    width: 1024px;
+    width: 1050px;
     height: 60px;
     border-bottom: 0.05px solid whitesmoke;
+    background-color: #34224f;
 }
 
 .item:hover {

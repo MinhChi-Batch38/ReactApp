@@ -12,8 +12,8 @@ import FastRewindRounded from '@mui/icons-material/FastRewindRounded';
 import VolumeUpRounded from '@mui/icons-material/VolumeUpRounded';
 import VolumeDownRounded from '@mui/icons-material/VolumeDownRounded';
 import './MusicPlayerSlider.css'
-import { useSelector } from 'react-redux';
-//import { useLocation } from "react-router-dom"
+//import { useSelector } from 'react-redux';
+import { useRef } from 'react';
 
 const WallPaper = styled('div')({
   position: 'absolute',
@@ -80,32 +80,43 @@ const TinyText = styled(Typography)({
   letterSpacing: 0.2,
 });
 
-
-
-export default function MusicPlayerSlider() {
-  //const location = useLocation()
-  const song = useSelector(state => state.audio)
-  const [audio, setAudio] = React.useState()
-  React.useEffect(() => {
-    setAudio(new Audio(song.link))
-  }, [song, audio])
-  //audio.load()
-  const duration = 200;
+export default function MusicPlayerSlider({song}) {
+  //const song = useSelector(state => state.audio)
+  const audioRef = useRef()
+  const onLoadedMetadata = () => {
+    if (audioRef.current) {
+      setDuration(audioRef.current.duration);
+    }
+  };
+  const [duration, setDuration] = React.useState(200)
   const theme = useTheme();
-  const [position, setPosition] = React.useState(32);
-  const [paused, setPaused] = React.useState(true);
+  const [position, setPosition] = React.useState(0)
+  const [volume, setVolume] = React.useState(30)
+  const [paused, setPaused] = React.useState(true)
   const handleOnPlayAudio = () => {
-    audio.play()
+    console.log('play')
+    audioRef.current.play()
+    console.log(audioRef.current.currentTime)
     setPaused(pre => !pre)
   }
   const handleOnPausedAudio = () => {
-    audio.pause()
+    audioRef.current.pause()
     setPaused(pre => !pre)
   }
-  
+
+  const handleOnChangeSlider = (value) => {
+    setPosition(value)
+    audioRef.current.currentTime = value
+  }
+
+  const handleOnChangeVolume = (value) => {
+    setVolume(value)
+    audioRef.current.volume = value/100
+  }
+
   function formatDuration(value) {
     const minute = Math.floor(value / 60);
-    const secondLeft = value - minute * 60;
+    const secondLeft = Math.floor(value - minute * 60);
     return `${minute}:${secondLeft < 10 ? `0${secondLeft}` : secondLeft}`;
   }
   const mainIconColor = theme.palette.mode === 'dark' ? '#fff' : '#000';
@@ -116,7 +127,7 @@ export default function MusicPlayerSlider() {
       <Widget>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <CoverImage>
-          <i className="play-song fa-solid fa-compact-disc fa-spin fa-6x"/>
+            <i className="play-song fa-solid fa-compact-disc fa-spin fa-6x" />
           </CoverImage>
           <Box sx={{ ml: 1.5, minWidth: 0 }}>
             <Typography variant="caption" color="text.secondary" fontWeight={500}>
@@ -130,14 +141,22 @@ export default function MusicPlayerSlider() {
             </Typography>
           </Box>
         </Box>
+        <audio
+          ref={audioRef}
+          onLoadedMetadata={onLoadedMetadata}
+          hidden={true}
+          onTimeUpdate={() => setPosition(audioRef.current.currentTime)}
+        >
+          <source src={song.link} type="audio/mp3" />
+        </audio>
         <Slider
           aria-label="time-indicator"
           size="small"
           value={position}
           min={0}
           step={1}
-          max={200}
-          onChange={(_, value) => setPosition(value)}
+          max={duration}
+          onChange={(e) => handleOnChangeSlider(e.target.value)}
           sx={{
             color: theme.palette.mode === 'dark' ? '#fff' : 'rgba(0,0,0,0.87)',
             height: 4,
@@ -149,11 +168,10 @@ export default function MusicPlayerSlider() {
                 boxShadow: '0 2px 12px 0 rgba(0,0,0,0.4)',
               },
               '&:hover, &.Mui-focusVisible': {
-                boxShadow: `0px 0px 0px 8px ${
-                  theme.palette.mode === 'dark'
+                boxShadow: `0px 0px 0px 8px ${theme.palette.mode === 'dark'
                     ? 'rgb(255 255 255 / 16%)'
                     : 'rgb(0 0 0 / 16%)'
-                }`,
+                  }`,
               },
               '&.Mui-active': {
                 width: 20,
@@ -208,7 +226,10 @@ export default function MusicPlayerSlider() {
           <VolumeDownRounded htmlColor={lightIconColor} />
           <Slider
             aria-label="Volume"
-            defaultValue={30}
+            value={volume}
+            min={0}
+            max={100}
+            onChange={e => {handleOnChangeVolume(e.target.value)}}
             sx={{
               color: theme.palette.mode === 'dark' ? '#fff' : 'rgba(0,0,0,0.87)',
               '& .MuiSlider-track': {
@@ -231,6 +252,8 @@ export default function MusicPlayerSlider() {
         </Stack>
       </Widget>
       <WallPaper />
+
     </Box>
+
   );
 }

@@ -26,13 +26,13 @@ i.delete {
     border-color: white;
 }
 
-div.home {
+/* div.home {
     position: absolute;
     width: 100%;
     height: 80px;
     top: 120px;
     left: 0px;
-}
+} */
 table,
 th,
 td {
@@ -65,11 +65,12 @@ input.check-delete {
     top: 281px;} */
 
 #table_wrapper {
-    position: absolute;
+    position: relative;
     background: transparent;
     border: 1px solid black;
     left: 170px;
-    top: 100px;
+    height: 650px;
+    width: 100%;
 }
 
 #tbody {
@@ -77,13 +78,12 @@ input.check-delete {
     overflow-x: hidden;
     position: relative;
     width: 100%;
-    height: 80%;
+    height: 600px;
     
 }
 
 table {
     position: relative;
-
     width: 941px;
 }
 
@@ -127,7 +127,7 @@ td {
 #header div {
     padding: 1px 5px;
     float: left;
-    text-align: center;
+    
     color: white;
     
 }
@@ -135,18 +135,21 @@ td {
 #header #head1 {
     width: 90px;
     font-size: medium;
+    text-align: center;
 }
 
 /* the same as td1 */
 #header #head2 {
-    width: 550px;
-    font-size: medium;
-
+    width: 600px;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: left;
 }
 
 #header #head3 {
-    width: 150px;
+    width: 185px;
     font-size: medium;
+    text-align: left;
 }
 
 
@@ -155,10 +158,11 @@ td {
     float: none;
     top: 281px;
     font-size: medium;  
+    text-align: left;
 }
 
 div.bottom {
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 100px;
     display: block;
@@ -178,7 +182,7 @@ div.nav-bar {
 }
 
 div.playing-song {
-    position: absolute;
+    position: relative;
     bottom: 0px;
     left: 0px;
     width: 100%;

@@ -58,7 +58,7 @@ function AddSong() {
         <div>
             <label className='add-song'>Add Song</label>
             <div className='form-add'>
-                {failed && <label className='failed'>Something's wrong! Let try again</label>}
+                {failed && <label className='failed'>Something's wrong! Please try again</label>}
                 {success && <label className='success'>The song has been added!</label>}
                 <div className='name'>
                     <Input title="Song" name="name" value={newSong.name} onChange={handleOnChange} />

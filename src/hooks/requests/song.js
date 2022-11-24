@@ -28,15 +28,22 @@ async function httpAddSong(song) {
     }catch (err) {
         console.log(err)
         return "404"
-    }
-        
-    
-    
-    
+    } 
+}
+
+async function httpEditSong(song) {
+    try {
+        const res = await axios.put(`${API_URL}/songs/edit-song `, song)
+        return await res.data
+    }catch (err) {
+        console.log(err)
+        return "404"
+    } 
 }
 
 export {
     httpGetAllSongs,
     httpAddSong,
+    httpEditSong,
     httpUpload
  };

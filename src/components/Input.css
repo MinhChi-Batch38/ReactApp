@@ -11,6 +11,9 @@ input.song {
     left: 200px;
     top: 10px;
     width: 300px;
-    height: 40px;
-    
+    height: 40px
+}
+
+.upload-audio {
+    display: none !important; 
 }

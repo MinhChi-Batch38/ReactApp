@@ -3,7 +3,7 @@ label.total {
     width: 200px;
     top: 20px;
     font-style: oblique;
-    left: 0px;
+    left: 40px;
     font-size: medium;
 }
 label {
@@ -14,7 +14,7 @@ label.selected {
     position: absolute;
     width: 200px;
     top: 50px;
-    left: 0px;
+    left: 40px;
     font-size: medium;
 }
 

@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { httpGetAllSongs } from "../requests/song";
+import { httpGetAllSongs, httpCountSongs } from "../requests/song";
 
-function useSongs() {
+function useSongs(page, size) {
   const [songs, setSongs] = useState([]);
 
   const getSongs = useCallback(async () => {
-    const fetchedSongs = await httpGetAllSongs();
+    const fetchedSongs = await httpGetAllSongs(page, size);
     setSongs(fetchedSongs);
-  }, []);
+  }, [page, size]);
 
   useEffect(() => {
     getSongs();
@@ -17,4 +17,23 @@ function useSongs() {
   return songs;
 }
 
-export default useSongs;
+
+function useTotal() {
+  const [total, setTotal] = useState();
+
+  const getTotal = useCallback(async () => {
+    const fetchedTotal = await httpCountSongs();
+    setTotal(fetchedTotal);
+  }, []);
+
+  useEffect(() => {
+    getTotal();
+  }, [getTotal]);
+
+  return total;
+}
+
+export {
+  useSongs,
+  useTotal,
+} 

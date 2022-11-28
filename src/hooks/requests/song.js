@@ -1,14 +1,23 @@
 import axios from 'axios'
 const API_URL = "http://localhost:8080"
-async function httpGetAllSongs() {
-    const res = await axios.get(`${API_URL}/songs/get-all`)
+
+
+
+async function httpGetAllSongs(page, size) {
+    const res = await axios.get(`${API_URL}/songs/get-songs/${page}/${size}`)
     .catch (function (error) {
         console.log(error);
     })
-    
     return await res.data;
 }
 
+async function httpCountSongs() {
+    const res = await axios.get(`${API_URL}/songs/count-songs`)
+    .catch (function (error) {
+        console.log(error);
+    })
+    return await res.data;
+}
 
 async function httpUpload(audio) {
     console.log(audio)
@@ -43,7 +52,8 @@ async function httpEditSong(song) {
 
 export {
     httpGetAllSongs,
+    httpCountSongs,
     httpAddSong,
     httpEditSong,
-    httpUpload
+    httpUpload,
  };

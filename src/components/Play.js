@@ -30,7 +30,8 @@ function Play({audio, song, singer}) {
             <label className='singer'>{singer}</label>
             <audio controls autoPlay className='center'>
                 <source src={audio} type="audio/mpeg"/>
-            </audio></div>)}
+            </audio></div>)
+            }
         </div>
     )
 }

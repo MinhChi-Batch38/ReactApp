@@ -2,7 +2,8 @@ import "./style.css"
 import Item from "../components/Item";
 import Bottom from "../components/Bottom";
 //import {httpGetUsers} from "../hooks/requests/demo.js"
-import useSongs from "../hooks/use/useSongs";
+
+import {useSongs, useTotal} from "../hooks/use/useSongs";
 import { useState } from "react";
 import Play from "../components/Play";
 import {Link} from 'react-router-dom'
@@ -11,22 +12,29 @@ import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { httpCountSongs, httpGetAllSongs } from "../hooks/requests/song";
 //import { httpGetAllSongs } from "../hooks/requests/song";
 
-
-
 function Home() {
-  const songs =  useSongs()
-  
-  
+  //const [songs, setSongs] =  useState(useSongs())
+  const [pageNumber, setPageNumber] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
+  var nice = useSongs(pageNumber-1, pageSize)
+  var to = useTotal()
+  // React.useEffect(async () => {
+  //   const to = await httpCountSongs()
+  //   setTotal(to)
+  //   const nice = await httpGetAllSongs(pageNumber-1, pageSize)
+  //   setSongs(nice)
+  // }, [pageNumber, pageSize])
   const [deleteSongs, setDeleteSongs] = useState([])
   const [audio, setAudio] = useState({})
   const [check, setCheck] = useState(false)
   const handlePlayAudio = (audio) => {
-    setAudio(audio);
+    setAudio(audio)
   }
   const handleOnCheck = () => {
-    check===false?setDeleteSongs(songs):setDeleteSongs([])
+    check===false?setDeleteSongs(nice):setDeleteSongs([])
     setCheck(pre=>!pre)
   }
   const handleOnItemCheck = (song) => {
@@ -43,7 +51,45 @@ function Home() {
       
     })
   }
-  console.log(deleteSongs)
+  const handlePreviousPageClick = value => {
+    if (isNaN(value)) {
+      console.log("NaN")
+      return
+    }
+    if (pageNumber>1) {
+      setPageNumber(pre => pre-1)
+    }
+  }
+
+  const handleNextPageClick = value => {
+    if (isNaN(value)) {
+      console.log("NaN")
+      return
+    }
+    if (pageNumber<to/pageSize) {
+      setPageNumber(pre => pre+1)
+    }
+  }
+
+  const handleSelectButtomOnChange = (value) => {
+    setPageSize(Number(value))
+  }
+
+  const handleInputButtomOnChange = (value) => {
+    if (isNaN(value)) {
+      console.log("err")
+      return
+    }
+    var num = Number(value)
+    if (num>to/pageSize+1 || num<to/pageSize) {
+      console.log("big or small")
+      return
+    }
+    if (num===0) {
+      num=1
+    }
+    setPageNumber(num)
+  }
   return (
     <div> 
       <div className="nav-bar">
@@ -60,12 +106,6 @@ function Home() {
             </Fab>
           </Box>
       </div>
-      <div className="bottom">
-        <Bottom
-          total={2}
-          selected={0}
-        />
-      </div>
       <div id="table_wrapper">
         <div id="header">
           <div id="head1">
@@ -77,7 +117,7 @@ function Home() {
         </div>
         <div id="tbody">
           <table>
-            {songs && songs.map(song => (
+            {nice && nice.map(song => (
               <tr key={song.id}>
               {(song.id===audio.id)?<Item
                 song = {song}
@@ -98,7 +138,17 @@ function Home() {
           </table>
         </div>
       </div>
-      
+      <div className="bottom">
+        <Bottom
+          total={to}
+          selected={deleteSongs.length}
+          selectOnchange={handleSelectButtomOnChange}
+          inputOnChange={handleInputButtomOnChange}
+          previousPageClick={handlePreviousPageClick}
+          nextPageClick={handleNextPageClick}
+          pageNumber={pageNumber}
+        />
+      </div>
       <div className='playing-song'>
         <Play audio={audio.link}
               song={audio.name}

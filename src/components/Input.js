@@ -18,7 +18,7 @@ function Input({title, name, type, value, onChange}){
             {type==="file" ? 
             <Button variant="contained" component="label">
             Upload
-            <input type={type} id={name} name={name} hidden accept="audio/mpeg" onChange={(e)=>onChange(title, e.target.files[0])} value={value} required/> 
+            <input type={type} className="upload-audio" id={name} name={name} hidden accept="audio/mpeg" onChange={(e)=>onChange(title, e.target.files[0])} value={value} required/> 
           </Button>
             :
             <Box

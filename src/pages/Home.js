@@ -12,29 +12,28 @@ import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { httpCountSongs, httpGetAllSongs } from "../hooks/requests/song";
-//import { httpGetAllSongs } from "../hooks/requests/song";
+import Alert from "../components/Alert/Alert";
+import { httpDeleteSongs } from "../hooks/requests/song";
+
+//import { httpCountSongs, httpGetAllSongs } from "../hooks/requests/song";
 
 function Home() {
-  //const [songs, setSongs] =  useState(useSongs())
   const [pageNumber, setPageNumber] = useState(1)
   const [pageSize, setPageSize] = useState(10)
-  var nice = useSongs(pageNumber-1, pageSize)
-  var to = useTotal()
-  // React.useEffect(async () => {
-  //   const to = await httpCountSongs()
-  //   setTotal(to)
-  //   const nice = await httpGetAllSongs(pageNumber-1, pageSize)
-  //   setSongs(nice)
-  // }, [pageNumber, pageSize])
+  var songs = useSongs(pageNumber-1, pageSize) 
+  var total = useTotal()
   const [deleteSongs, setDeleteSongs] = useState([])
   const [audio, setAudio] = useState({})
   const [check, setCheck] = useState(false)
+  const [deleteSuccess, setDeleteSuccess] = useState(false)
+  const [deleteFailed, setDeleteFailed] = useState(false)
+
+
   const handlePlayAudio = (audio) => {
     setAudio(audio)
   }
   const handleOnCheck = () => {
-    check===false?setDeleteSongs(nice):setDeleteSongs([])
+    check===false?setDeleteSongs(songs):setDeleteSongs([])
     setCheck(pre=>!pre)
   }
   const handleOnItemCheck = (song) => {
@@ -66,7 +65,7 @@ function Home() {
       console.log("NaN")
       return
     }
-    if (pageNumber<to/pageSize) {
+    if (pageNumber<total/pageSize) {
       setPageNumber(pre => pre+1)
     }
   }
@@ -81,7 +80,7 @@ function Home() {
       return
     }
     var num = Number(value)
-    if (num>to/pageSize+1 || num<to/pageSize) {
+    if (num>total/pageSize+1 || num<total/pageSize) {
       console.log("big or small")
       return
     }
@@ -90,23 +89,51 @@ function Home() {
     }
     setPageNumber(num)
   }
+
+  const handleAlert = (state) => {
+    if (state==="success") {
+      setDeleteSuccess(false)
+    } else {
+      setDeleteFailed(false)
+    }
+  }
+  const handleOnDelete = async () => {
+    
+    if (deleteSongs.length>0) {
+      if (window.confirm("Do you want to delete the songs?")) {
+      const res = await httpDeleteSongs(deleteSongs)
+      if (res===200) {
+        setDeleteSuccess(true)
+      } else {
+        setDeleteFailed(true)
+        console.log(res)
+      }
+    }
+    }
+  }
+
+  //Render
   return (
     <div> 
       <div className="nav-bar">
         <Link className="btn-add" to='/add'>
           <Box sx={{ '& > :not(style)': { m: 1 } }}>
-            <Fab color="primary" aria-label="add">
+            <Fab color="primary" aria-label="add" title="Add">
               <AddIcon />
             </Fab>
           </Box>
         </Link>
-          <Box sx={{ '& > :not(style)': { m: 1 } }} className="btn-delete">
-            <Fab color="secondary" aria-label="delete">
+          <Box sx={{ '& > :not(style)': { m: 1 } }} className="btn-delete" onClick={handleOnDelete}>
+            <Fab color="secondary" aria-label="delete" title="Delete selected">
               <DeleteIcon />
             </Fab>
           </Box>
       </div>
       <div id="table_wrapper">
+        <div>
+          {deleteSuccess && <Alert success={true} content="The songs is deleted!" onAlert={handleAlert}/>}
+          {deleteFailed && <Alert failed={true} content="Fail to delete songs!" onAlert={handleAlert}/>}
+        </div>
         <div id="header">
           <div id="head1">
             <input type="checkbox" onClick={handleOnCheck}/>
@@ -117,7 +144,7 @@ function Home() {
         </div>
         <div id="tbody">
           <table>
-            {nice && nice.map(song => (
+            {songs && songs.map(song => (
               <tr key={song.id}>
               {(song.id===audio.id)?<Item
                 song = {song}
@@ -140,7 +167,7 @@ function Home() {
       </div>
       <div className="bottom">
         <Bottom
-          total={to}
+          total={total}
           selected={deleteSongs.length}
           selectOnchange={handleSelectButtomOnChange}
           inputOnChange={handleInputButtomOnChange}

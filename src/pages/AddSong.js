@@ -6,13 +6,14 @@ import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
+import Alert from '../components/Alert/Alert';
 //import { useNavigate } from 'react-router-dom';
 
 function AddSong() {
     const [newSong, setNewSong] = useState({})
     //const navigate = useNavigate()
     var song = {}
-    const [failed, setFailed] = useState(false)
+    const [failed, setFailed] = useState(null)
     const [success, setSuccess] = useState(false)
     const [addSuccessful, setAddSuccessful] = useState(true)
     const handleOnChange = (title, value) => {
@@ -37,18 +38,23 @@ function AddSong() {
         setAddSuccessful(false)
         setNewSong(song)
         const link = await httpUpload(song.link);
-        if (link !== "Unsuccessfully Uploaded!") {
-            song.link = link
-            const res = await httpAddSong(song)
-            if (res !== 201) {
-                setFailed(true)
-                setSuccess(false)
-                setAddSuccessful(true)
-            } else {
-                setSuccess(true)
-                setFailed(false)
-                setNewSong({})
-                setAddSuccessful(true)
+        if (link === 404) {
+            setFailed("Unsupport file")
+            setAddSuccessful(true)
+        } else {
+            if (link !== "Unsuccessfully Uploaded!") {
+                song.link = link
+                const res = await httpAddSong(song)
+                if (res !== 201) {
+                    setFailed("Can't add song")
+                    setSuccess(false)
+                    setAddSuccessful(true)
+                } else {
+                    setSuccess(true)
+                    setFailed(false)
+                    setNewSong({})
+                    setAddSuccessful(true)
+                }
             }
         }
 
@@ -58,7 +64,7 @@ function AddSong() {
         <div>
             <label className='add-song'>Add Song</label>
             <div className='form-add'>
-                {failed && <label className='failed'>Something's wrong! Please try again</label>}
+                {failed && <Alert/>}
                 {success && <label className='success'>The song has been added!</label>}
                 <div className='name'>
                     <Input title="Song" name="name" value={newSong.name} onChange={handleOnChange} />

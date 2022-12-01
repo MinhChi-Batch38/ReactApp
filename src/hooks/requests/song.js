@@ -50,10 +50,29 @@ async function httpEditSong(song) {
     } 
 }
 
+async function httpDeleteSongs(songs) {
+    const ids = []
+    songs.map(song => {
+        ids.push(song.id)
+        return
+    })
+    console.log(ids)
+    try {
+        const res = await axios.delete(`${API_URL}/songs/delete-songs/${ids}`)
+        return await res.data
+    } catch (err) {
+        console.log(err)
+        return "404"
+    } 
+}
+
+
+
 export {
     httpGetAllSongs,
     httpCountSongs,
     httpAddSong,
     httpEditSong,
     httpUpload,
+    httpDeleteSongs,
  };

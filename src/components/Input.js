@@ -16,10 +16,11 @@ function Input({title, name, type, value, onChange}){
             <input className='song' type={type} id={name} name={name} onChange={(e)=>onChange(title, e.target.value) } required/>
             } */}
             {type==="file" ? 
-            <Button variant="contained" component="label">
-            Upload
-            <input type={type} className="upload-audio" id={name} name={name} hidden accept="audio/mpeg" onChange={(e)=>onChange(title, e.target.files[0])} value={value} required/> 
-          </Button>
+        //     <Button variant="contained" component="label">
+        //     Upload
+        //     <input type={type} className="upload-audio" id={name} name={name} hidden accept="audio/mpeg" onChange={(e)=>onChange(title, e.target.files[0])} value={value} required/> 
+        //   </Button>
+            <input type={type} id={name} name={name} accept="audio/mpeg" onChange={(e)=>onChange(title, e.target.files[0])} value={value} required/> 
             :
             <Box
                 sx={{

@@ -1,11 +1,11 @@
 
 import './App.css';
-import Head from './components/Head';
-import Home from './pages/Home';
-import Login from './pages/Login';
+import Head from '../components/Head';
+import Home from '../pages/Home';
+import Login from '../pages/Login/Login';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import AddSong from './pages/AddSong';
-import EditSong from './pages/EditSong/EditSong';
+import AddSong from '../pages/AddSong/AddSong';
+import EditSong from '../pages/EditSong/EditSong';
 
 function App() {
   return (
@@ -20,9 +20,8 @@ function App() {
           <Route path='/login' element={<Login />} />,
           <Route path="/home" element={<Home/>} />,
           <Route path="/add" element={<AddSong/>} />,
-          <Route path="/edit" element={<EditSong/>} />,
-      </Routes>
-        
+          <Route path="/edit" element={<EditSong />} />,
+      </Routes>       
       </div>
     </div>
     </BrowserRouter>

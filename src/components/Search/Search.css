@@ -1,0 +1,10 @@
+.autocomplete {
+    position: absolute;
+    width: 100px;
+    height: 10px;
+}
+.search {
+    width: 280px;
+    height: 45px;
+    border-radius: 10px 10px 10px 10px !important;
+}

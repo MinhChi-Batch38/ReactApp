@@ -11,6 +11,11 @@ import TextField from '@mui/material/TextField';
 import { httpEditSong } from "../../hooks/requests/song";
 
 function EditInput({ title, value, onChange, defaultValue }) {
+    const [changeValue, setChangeValue] = useState(value);
+    const handleOnChange = (name) => {
+        setChangeValue(name);
+        onChange(title, name)
+    }
     return (
         <Box
             sx={{
@@ -19,43 +24,57 @@ function EditInput({ title, value, onChange, defaultValue }) {
                 
             }}
         >
-            <TextField fullWidth label={title} pattern="[A-Za-z]" onChange={(e) => onChange(title, e.target.value)} value={value} required />
+            <TextField fullWidth label={title} pattern="[A-Za-z]" 
+            onChange={ e => handleOnChange(e.target.value)} value={changeValue} required />
         </Box>
     )
 }
 
 export default function EditSong() {
-
-
     const song = useSelector(state => state.audio)
+    const initialSong = useSelector(state => state.audio)
     const [editSong, setEditSong] = useState(song)
-    var actualSong = song
     const [editSuccessful, setEditSuccessful] = useState(true)
     const [success, setSuccess] = useState(false)
     const [failed, setFailed] = useState(false)
 
     const handleOnChange = (title, value) => {
         if (title === "Song") {
-            actualSong.name = value   
-            setEditSong(actualSong)
+            // actualSong.name = value   
+            // setEditSong(actualSong)
+            setEditSong(pre => {
+                pre.name = value
+                return pre
+            })
         }
         if (title === "Singer") {
-           actualSong.singer = value
+        //    actualSong.singer = value
+        //    setEditSong(actualSong)
+        setEditSong(pre => {
+            pre.singer = value
+            return pre
+        })
         }
         if (title === "Genre") {
-            actualSong.genre = value
+            // actualSong.genre = value
+            // setEditSong(actualSong)
+            setEditSong(pre => {
+                pre.genre = value
+                return pre
+            })
         }
+        console.log(editSong)
     }
     const handleOnSubmit = async () => {
-        if (!actualSong.name || !actualSong.singer || !actualSong.genre || !actualSong.link) {
+        if (!editSong.name || !editSong.singer || !editSong.genre || !editSong.link) {
             alert("Please provide all elements")
             return
         }
-        if (actualSong.name.lenght > 1) {
+        if (editSong.name.lenght > 1) {
             alert("Name is too long!")
         }
         setEditSuccessful(false)
-            const res = await httpEditSong(actualSong)
+            const res = await httpEditSong(editSong)
             if (res !== 200) {
                 setFailed(true)
                 setSuccess(false)
@@ -63,7 +82,7 @@ export default function EditSong() {
             } else {
                 setSuccess(true)
                 setFailed(false)
-                setEditSong(actualSong)
+                setEditSong(editSong)
                 setEditSuccessful(true)
             }
         
@@ -71,7 +90,7 @@ export default function EditSong() {
     
     const handleOnCancel = () => {
         setEditSong(song)
-        actualSong = song
+        console.log(initialSong)
     }
 
     return (

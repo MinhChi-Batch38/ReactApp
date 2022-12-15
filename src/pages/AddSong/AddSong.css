@@ -38,7 +38,7 @@ div.audio {
 }
 div.submit {
     position: absolute;
-    left: 700px;
+    left: 500px;
     top: 500px;
    
 }
@@ -63,3 +63,8 @@ div.choose-audio {
     background-color: aliceblue;
 }
 
+.cancel {
+    position: absolute;
+    top: 500px;
+    margin-left: 60px;
+}

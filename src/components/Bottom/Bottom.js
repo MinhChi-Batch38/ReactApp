@@ -11,13 +11,14 @@ function Bottom(props) {
 
         }
     }
-
+  
     return (
         <div >
             <label className="total">Total Items: {props.total}</label>
             <label className="selected">Selected Items: {props.selected}</label>
             <label className="page-size">Page size: </label>
             <select className='page' onChange={e => props.selectOnchange(e.target.value)}>
+                <option>5</option>
                 <option>10</option>
                 <option>15</option>
                 <option>20</option>

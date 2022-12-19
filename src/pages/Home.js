@@ -18,7 +18,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Alert from "../components/Alert/Alert";
 import { httpDeleteSongs } from "../hooks/requests/song";
 import songs from "../model/songs";
-import { minHeight } from "@mui/system";
+import FormAdd from "../components/FormAdd/FormAdd";
 
 //import { httpCountSongs, httpGetAllSongs } from "../hooks/requests/song";
 
@@ -33,6 +33,7 @@ function Home() {
   const [check, setCheck] = useState(false)
   const [deleteSuccess, setDeleteSuccess] = useState(false)
   const [deleteFailed, setDeleteFailed] = useState(false)
+  const [addOpen, setAddOpen] = useState(false)
 
 
   const handlePlayAudio = (audio) => {
@@ -118,17 +119,23 @@ function Home() {
     }
   }
 
+  const handleOnCloseDialog = () => {
+    setAddOpen(false)
+    console.log(addOpen)
+  }
+  const handleOnOpenDialog = () => {
+    setAddOpen(true)
+  }
+
   //Render
   return (
     <div>
       <div className="nav-bar">
-        <Link className="btn-add" to='/add'>
-          <Box sx={{ '& > :not(style)': { m: 1 } }}>
+          <Box sx={{ '& > :not(style)': { m: 1 } }} className="btn-add" onClick={handleOnOpenDialog}>
             <Fab color="primary" aria-label="add" title="Add">
               <AddIcon />
             </Fab>
           </Box>
-        </Link>
         <Box sx={{ '& > :not(style)': { m: 1 } }} className="btn-delete" onClick={handleOnDelete}>
           <Fab color="secondary" aria-label="delete" title="Delete selected">
             <DeleteIcon />
@@ -139,6 +146,9 @@ function Home() {
         <div>
           {deleteSuccess && <Alert success={true} content="The songs is deleted!" onAlert={handleAlert} />}
           {deleteFailed && <Alert failed={true} content="Fail to delete songs!" onAlert={handleAlert} />}
+        </div>
+        <div>
+          {addOpen && <FormAdd isOpen={addOpen} onChange={handleOnCloseDialog}></FormAdd>}
         </div>
         <div id="header">
           <div id="head1">

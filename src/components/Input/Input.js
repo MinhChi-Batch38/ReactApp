@@ -3,11 +3,10 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-
 function Input({title, name, type, value, onChange}){
 
     return (
-        <div>
+        <div className='input-component'>
             {/* <label className='title'>{title}: </label> */}
             {/* { type==="file" ? 
             
@@ -28,7 +27,12 @@ function Input({title, name, type, value, onChange}){
                     maxWidth: '100%',
                 }}
             >
-                <TextField fullWidth label={title} id={name} onChange={(e)=>onChange(title, e.target.value)} value={value} required/>
+                <TextField fullWidth 
+                label={title} 
+                id={name} 
+                onChange={(e)=>onChange(title, e.target.value)} 
+                value={value}
+                required/>
             </Box>}
         </div>
     )

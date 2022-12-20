@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import MusicPlayerSlider from "../../components/PlayMusic/MusicPlayerSlider"
 import './EditSong.css'
 import EditIcon from '@mui/icons-material/Edit';
@@ -10,10 +10,15 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { httpEditSong } from "../../hooks/requests/song";
 
-function EditInput({ title, value, onChange, defaultValue }) {
+const regexp = /[^0-9a-zA-Z]/
+
+function EditInput({ title, value, onChange}) {
     const [changeValue, setChangeValue] = useState(value);
+    useEffect(() => {
+        setChangeValue(value)
+    }, [value])
     const handleOnChange = (name) => {
-        setChangeValue(name);
+        setChangeValue(name)
         onChange(title, name)
     }
     return (
@@ -24,57 +29,76 @@ function EditInput({ title, value, onChange, defaultValue }) {
                 
             }}
         >
-            <TextField fullWidth label={title} pattern="[A-Za-z]" 
+            <TextField fullWidth label={title}
             onChange={ e => handleOnChange(e.target.value)} value={changeValue} required />
         </Box>
     )
 }
 
+function reset(editSong)
+{
+    var newSong = {}
+    newSong.id = editSong.id
+    newSong.name = editSong.name
+    newSong.singer = editSong.singer
+    newSong.genre = editSong.genre
+    newSong.link = editSong.link
+    return newSong
+}
+
 export default function EditSong() {
     const song = useSelector(state => state.audio)
-    const initialSong = useSelector(state => state.audio)
+    
     const [editSong, setEditSong] = useState(song)
+    const [newSong, setNewSong] = useState(reset(editSong))
     const [editSuccessful, setEditSuccessful] = useState(true)
     const [success, setSuccess] = useState(false)
     const [failed, setFailed] = useState(false)
 
     const handleOnChange = (title, value) => {
         if (title === "Song") {
-            // actualSong.name = value   
-            // setEditSong(actualSong)
-            setEditSong(pre => {
+            // setEditSong(pre => {
+            //     pre.name = value
+            //     return pre
+            // })
+            setNewSong(pre => {
                 pre.name = value
                 return pre
             })
         }
         if (title === "Singer") {
-        //    actualSong.singer = value
-        //    setEditSong(actualSong)
-        setEditSong(pre => {
-            pre.singer = value
-            return pre
-        })
+            setNewSong(pre => {
+                pre.singer = value
+                return pre
+            })
+        // setEditSong(pre => {
+        //     pre.singer = value
+        //     return pre
+        // })
         }
         if (title === "Genre") {
-            // actualSong.genre = value
-            // setEditSong(actualSong)
-            setEditSong(pre => {
+            setNewSong(pre => {
                 pre.genre = value
                 return pre
             })
+            // setEditSong(pre => {
+            //     pre.genre = value
+            //     return pre
+            // })
         }
-        console.log(editSong)
+        console.log(newSong)
     }
     const handleOnSubmit = async () => {
-        if (!editSong.name || !editSong.singer || !editSong.genre || !editSong.link) {
+        if (!newSong.name || !newSong.singer || !newSong.genre || !newSong.link) {
             alert("Please provide all elements")
             return
         }
-        if (editSong.name.lenght > 1) {
-            alert("Name is too long!")
+        if (regexp.test(newSong.name) || regexp.test(newSong.singer) || regexp.test(newSong.genre)) {
+            alert('Please provide valid elements!')
+            return
         }
         setEditSuccessful(false)
-            const res = await httpEditSong(editSong)
+            const res = await httpEditSong(newSong)
             if (res !== 200) {
                 setFailed(true)
                 setSuccess(false)
@@ -82,15 +106,16 @@ export default function EditSong() {
             } else {
                 setSuccess(true)
                 setFailed(false)
-                setEditSong(editSong)
+                setEditSong(newSong)
                 setEditSuccessful(true)
             }
         
     }
     
     const handleOnCancel = () => {
-        setEditSong(song)
-        console.log(initialSong)
+        setNewSong(reset(editSong))
+        console.log(reset(editSong))
+        console.log(editSong)
     }
 
     return (
@@ -103,15 +128,15 @@ export default function EditSong() {
                 {success && <div className="item-item"><label className='success'>The song has been edited!</label></div>}
                 <div className="item-item">
                     {/* <Input title="Song" name="name" value={editSong.name} onChange={handleOnChange} /> */}
-                    <EditInput title="Song" value={editSong.name} onChange={handleOnChange}/>
+                    <EditInput title="Song" value={newSong.name} onChange={handleOnChange}/>
                 </div>
                 <div className="item-item">
-                    {/* <Input title="Singer" name="singer" value={editSong.singer} onChange={handleOnChange} /> */}
-                    <EditInput title="Singer" value={editSong.singer} onChange={handleOnChange}/>
+                    {/* <Input title="Singer" name="singer" value={newSong.singer} onChange={handleOnChange} /> */}
+                    <EditInput title="Singer" value={newSong.singer} onChange={handleOnChange}/>
                 </div>
                 <div className="item-item">
-                    {/* <Input title="Genre" name="genre" value={editSong.genre} onChange={handleOnChange} /> */}
-                    <EditInput title="Genre" value={editSong.genre} onChange={handleOnChange}/>
+                    {/* <Input title="Genre" name="genre" value={newSong.genre} onChange={handleOnChange} /> */}
+                    <EditInput title="Genre" value={newSong.genre} onChange={handleOnChange}/>
                 </div>
                 <div >
                     <Button id="btn-cancel" variant="contained" color="error" startIcon={<CancelIcon />} onClick={handleOnCancel}>

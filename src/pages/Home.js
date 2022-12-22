@@ -6,7 +6,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-//import { useSongs, useTotal } from "../hooks/use/useSongs";
+import { useSongs, useTotal } from "../hooks/use/useSongs";
 import { useState } from "react";
 import Play from "../components/Play/Play";
 // import { Link } from 'react-router-dom'
@@ -17,17 +17,24 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Alert from "../components/Alert/Alert";
 import { httpDeleteSongs } from "../hooks/requests/song";
-import songs from "../model/songs";
 import FormAdd from "../components/FormAdd/FormAdd";
 
 //import { httpCountSongs, httpGetAllSongs } from "../hooks/requests/song";
+function GetSong([pageNumber, pageSize]) {
+  return useSongs(pageNumber-1, pageSize)
+}
 
 function Home() {
   const [pageNumber, setPageNumber] = useState(1)
   const [pageSize, setPageSize] = useState(10)
-  // var songs = useSongs(pageNumber-1, pageSize) 
-  //var total = useTotal()
-  var total = 10;
+  // var initialSong = useSongs(pageNumber-1, pageSize) 
+  // const [songs, setSongs] = useState(initialSong)
+  // React.useEffect(() => {
+  //   setSongs(GetSong(pageNumber, pageSize))
+  // }, [pageNumber, pageSize])
+  // console.log(songs)
+  var songs = useSongs(pageNumber-1, pageSize) 
+  var total = useTotal()
   const [deleteSongs, setDeleteSongs] = useState([])
   const [audio, setAudio] = useState({})
   const [check, setCheck] = useState(false)

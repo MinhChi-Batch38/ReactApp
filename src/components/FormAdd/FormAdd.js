@@ -11,14 +11,15 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useState } from 'react';
 import { httpAddSong, httpUpload } from '../../hooks/requests/song'
-export default function FormAdd({ isOpen, onChange }) {
+import {GENRE, REGEXP}  from '../../Config/Constant'
+import Selection from '../Input/Selection';
+export default function FormAdd({ isOpen, onChange, onAdd }) {
     const [newSong, setNewSong] = useState({})
     const [open, setOpen] = useState(isOpen);
     const [addSuccessful, setAddSuccessful] = useState(true)
     const [end, setEnd] = useState(false)
     const [failed, setFailed] = useState(false)
-    const regexp = /[^0-9a-zA-Z ]/
-    console.log(open)
+    const regexp = REGEXP
     React.useEffect(() => {
         setOpen(isOpen)
     }, [isOpen])
@@ -27,7 +28,7 @@ export default function FormAdd({ isOpen, onChange }) {
         setNewSong({})
         setOpen(false);
         onChange();
-    };  
+    };
     const handleOnChange = (title, value) => {
         if (title === "Song") {
             // song.name = value
@@ -86,7 +87,8 @@ export default function FormAdd({ isOpen, onChange }) {
             if (link !== "Unsuccessfully Uploaded!") {
                 newSong.link = link
                 const res = await httpAddSong(newSong)
-                if (res !== 201) {
+                console.log(res)
+                if (res.status !== 201) {
                     setFailed("Can't add song")
                     setAddSuccessful(true)
                     setEnd(true)
@@ -95,6 +97,7 @@ export default function FormAdd({ isOpen, onChange }) {
                     setNewSong({})
                     setAddSuccessful(true)
                     setEnd(true)
+                    onAdd(res.song)
                 }
             }
         }
@@ -105,54 +108,55 @@ export default function FormAdd({ isOpen, onChange }) {
         <div>
             <Dialog open={open} onClose={handleClose}>
                 {end || <div>
-                <DialogTitle>Add New Song</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        To add new song, please enter all the song's information
-                    </DialogContentText>
-                    <Input title="Song" name="name" onChange={handleOnChange} />
-                    <Input title="Singer" name="singer" onChange={handleOnChange} />
-                    <Input title="Genre" name="genre" onChange={handleOnChange} />
-                    <Input title="Audio" name="link" type="file" onChange={handleOnChange} />
-                </DialogContent>
-                <DialogActions>
-                    <Button id="btn-cancel" variant="contained"
-                        color="error" startIcon={<CancelIcon />} onClick={handleClose}>
-                        Cancel
-                    </Button>
-                    {addSuccessful && <Button variant="contained" startIcon={<AddIcon />} onClick={handleOnSubmit}>
-                        Add
-                    </Button>}
-                    {addSuccessful || <LoadingButton
-                        loading
-                        loadingPosition="start"
-                        startIcon={<AddIcon />}
-                        variant="outlined"
-                    >
-                        Adding
-                    </LoadingButton>}
-                </DialogActions>
+                    <DialogTitle>Add new song</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            To add new song, please enter all the song's information
+                        </DialogContentText>
+                        <Input title="Song" name="name" onChange={handleOnChange} />
+                        <Input title="Singer" name="singer" onChange={handleOnChange} />
+                        <Selection options={GENRE} onChange={handleOnChange} title="Genre"/>
+                        {/* <Input title="Genre" name="genre" onChange={handleOnChange} /> */}
+                        <Input title="Audio" name="link" type="file" onChange={handleOnChange} />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button id="btn-cancel" variant="contained"
+                            color="error" startIcon={<CancelIcon />} onClick={handleClose}>
+                            Cancel
+                        </Button>
+                        {addSuccessful && <Button variant="contained" startIcon={<AddIcon />} onClick={handleOnSubmit}>
+                            Add
+                        </Button>}
+                        {addSuccessful || <LoadingButton
+                            loading
+                            loadingPosition="start"
+                            startIcon={<AddIcon />}
+                            variant="outlined"
+                        >
+                            Adding
+                        </LoadingButton>}
+                    </DialogActions>
                 </div>}
                 {end && <div>
                     <DialogTitle>Add New Song</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        {!failed ? <p>Add successfully!</p> : <p>Add failed!</p> }
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    {<Button variant="contained" onClick={handleClose}>
-                        OK
-                    </Button>}
-                    {addSuccessful || <LoadingButton
-                        loading
-                        loadingPosition="start"
-                        variant="outlined"
-                    >
-                        Adding
-                    </LoadingButton>}
-                </DialogActions>
-                    </div>}
+                    <DialogContent>
+                        <DialogContentText>
+                            {!failed ? <p>Add successfully!</p> : <p>Add failed!</p>}
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        {<Button variant="contained" onClick={handleClose}>
+                            OK
+                        </Button>}
+                        {addSuccessful || <LoadingButton
+                            loading
+                            loadingPosition="start"
+                            variant="outlined"
+                        >
+                            Adding
+                        </LoadingButton>}
+                    </DialogActions>
+                </div>}
             </Dialog>
         </div>
     );

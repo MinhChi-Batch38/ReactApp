@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import {useState } from "react"
 import MusicPlayerSlider from "../../components/PlayMusic/MusicPlayerSlider"
 import './EditSong.css'
 import EditIcon from '@mui/icons-material/Edit';
@@ -9,28 +9,9 @@ import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { httpEditSong } from "../../hooks/requests/song";
+import { REGEXP } from "../../Config/Constant";
 
-const regexp = /[^0-9a-zA-Z ]/
-
-function EditInput({ title, value, onChange }) {
-    const [changeValue, setChangeValue] = useState(value);
-    const handleOnChange = (name) => {
-        setChangeValue(name)
-        onChange(title, name)
-    }
-    return (
-        <Box
-            sx={{
-                width: 500,
-                maxWidth: '100%',
-
-            }}
-        >
-            <TextField fullWidth label={title}
-                onChange={e => handleOnChange(e.target.value)} value={changeValue} required />
-        </Box>
-    )
-}
+const regexp = REGEXP
 
 function setNewSong(song, name, singer, genre) {
     var newSong = song

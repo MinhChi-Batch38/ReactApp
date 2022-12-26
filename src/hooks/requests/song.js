@@ -67,6 +67,16 @@ async function httpDeleteSongs(songs) {
 }
 
 
+async function httpSearchSong(kw) {
+    try {
+        const res = await axios.post(`${API_URL}/songs/search/${kw}`)
+        return await res.data
+    }catch (err) {
+        console.log(err)
+        return "404"
+    } 
+}
+
 
 export {
     httpGetAllSongs,
@@ -75,4 +85,5 @@ export {
     httpEditSong,
     httpUpload,
     httpDeleteSongs,
+    httpSearchSong,
  };

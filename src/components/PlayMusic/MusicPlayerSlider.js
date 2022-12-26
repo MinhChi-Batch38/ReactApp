@@ -127,7 +127,8 @@ export default function MusicPlayerSlider({song}) {
       <Widget>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <CoverImage>
-            <i className="play-song fa-solid fa-compact-disc fa-spin fa-6x" />
+            {!paused ? <i className="play-song fa-solid fa-compact-disc fa-spin fa-6x" /> : 
+              <i className="play-song fa-solid fa-compact-disc fa-6x"/>}
           </CoverImage>
           <Box sx={{ ml: 1.5, minWidth: 0 }}>
             <Typography variant="caption" color="text.secondary" fontWeight={500}>
@@ -137,7 +138,7 @@ export default function MusicPlayerSlider({song}) {
               <b>{song.name}</b>
             </Typography>
             <Typography noWrap letterSpacing={-0.25}>
-              Chilling Sunday &mdash; คนเก่าเขาทำไว้ดี
+              {song.lastUpdate}
             </Typography>
           </Box>
         </Box>

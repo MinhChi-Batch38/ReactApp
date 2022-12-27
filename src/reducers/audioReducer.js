@@ -8,7 +8,6 @@ const audioReducer = (state={}, action) => {
             state = action.audio
             break
         default:
-            state = {}
             break
     }
     return state

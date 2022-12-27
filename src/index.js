@@ -6,14 +6,12 @@ import reportWebVitals from './App/reportWebVitals';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import audioReducer from './reducers/audioReducer';
-import pageNumberReducer from './reducers/pagingReducer';
-import pageSizeReducer from './reducers/pageSizeReducer';
+import searchReducer from './reducers/searchReducer';
 
 const store = configureStore({
   reducer: {
     "audio": audioReducer,
-    "pageNumber": pageNumberReducer,
-    "pageSize": pageSizeReducer,
+    "kw": searchReducer,
   }
 })
 

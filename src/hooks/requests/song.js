@@ -3,8 +3,12 @@ const API_URL = "http://localhost:8080"
 
 
 
-async function httpGetAllSongs(page, size) {
-    const res = await axios.get(`${API_URL}/songs/get-songs/${page}/${size}`)
+async function httpGetAllSongs(kw, page, size) {
+    const res = await axios.get(`${API_URL}/songs/get-songs/`, {params: {
+        keywords: kw,
+        page: page,
+        size: size,
+    }})
     .catch (function (error) {
         console.log(error);
     })
@@ -67,9 +71,13 @@ async function httpDeleteSongs(songs) {
 }
 
 
-async function httpSearchSong(kw) {
+async function httpSearchSong(kw, pageNumber, pageSize) {
     try {
-        const res = await axios.post(`${API_URL}/songs/search/${kw}`)
+        const res = await axios.post(`${API_URL}/songs/search/`, {params: {
+            keywords: kw,
+            page: pageNumber,
+            size: pageSize,
+        }})
         return await res.data
     }catch (err) {
         console.log(err)

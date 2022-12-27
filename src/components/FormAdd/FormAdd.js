@@ -111,7 +111,8 @@ export default function FormAdd({ isOpen, onChange, onAdd }) {
                     <DialogTitle>Add new song</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            To add new song, please enter all the song's information
+                        <i className="fa-solid fa-circle-info" style={{paddingRight: 10}}></i>
+                        To add new song, please enter all the song's information
                         </DialogContentText>
                         <Input title="Song" name="name" onChange={handleOnChange} />
                         <Input title="Singer" name="singer" onChange={handleOnChange} />
@@ -141,6 +142,7 @@ export default function FormAdd({ isOpen, onChange, onAdd }) {
                     <DialogTitle>Add New Song</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
+                        <i className="fa-solid fa-circle-info" style={{paddingRight: 10}}></i>
                             {!failed ? <p>Add successfully!</p> : <p>Add failed!</p>}
                         </DialogContentText>
                     </DialogContent>

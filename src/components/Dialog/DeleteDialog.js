@@ -47,6 +47,7 @@ export default function DeleteDialog({ isOpen, deleteSongs, onDeleteSuccessful, 
                     <DialogTitle>Delete Songs</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
+                        <i class="fa-regular fa-circle-question" style={{paddingRight: 10}}></i>
                             Are you sure to delete all the songs are selected?
                         </DialogContentText>
                     </DialogContent>
@@ -72,6 +73,7 @@ export default function DeleteDialog({ isOpen, deleteSongs, onDeleteSuccessful, 
                     <DialogTitle>Delete Songs</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
+                        <i className="fa-solid fa-circle-info" style={{paddingRight: 10}}></i>
                             {!failed ? <p>Delete successfully!</p> : <p>Delete failed!</p>}
                         </DialogContentText>
                     </DialogContent>

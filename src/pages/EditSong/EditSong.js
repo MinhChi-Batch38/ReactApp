@@ -1,4 +1,4 @@
-import {useState } from "react"
+import { useState } from "react"
 import MusicPlayerSlider from "../../components/PlayMusic/MusicPlayerSlider"
 import './EditSong.css'
 import EditIcon from '@mui/icons-material/Edit';
@@ -8,9 +8,13 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { httpEditSong } from "../../hooks/requests/song";
-import { REGEXP } from "../../Config/Constant";
+import { httpEditSong, httpCheckSong } from "../../hooks/requests/song";
+import { REGEXP, GENRE } from "../../Config/Constant";
 import MessageDialog from "../../components/Dialog/MessageDialog";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const regexp = REGEXP
 
@@ -28,8 +32,7 @@ export default function EditSong() {
     const [singer, setSinger] = useState(song.singer)
     const [genre, setGenre] = useState(song.genre)
     const [editSuccessful, setEditSuccessful] = useState(true)
-    const [success, setSuccess] = useState(false)
-    const [failed, setFailed] = useState(false)
+    const [message, setMessage] = useState(false)
 
     const handleOnSongChange = (value) => {
         setName(value)
@@ -50,19 +53,24 @@ export default function EditSong() {
             alert('Please provide valid elements!')
             return
         }
+        if (name === song.name && singer === song.singer && genre === song.genre) {
+            return
+        }
         setEditSuccessful(false)
         const newSong = setNewSong(song, name, singer, genre)
-        const res = await httpEditSong(newSong)
-        if (res !== 200) {
-            setFailed(true)
-            setSuccess(false)
-            setEditSuccessful(true)
+        const check = await httpCheckSong(newSong.name, newSong.singer)
+        if (check.status === 200) {
+            const res = await httpEditSong(newSong)
+            console.log(res.song)
+            if (res.status !== 200) {         
+                setEditSuccessful(true)
+            } else {
+                setEditSuccessful(true)
+            }
+            setMessage(res.message)
         } else {
-            setSuccess(true)
-            setFailed(false)
-            // setEditSong(newSong)
+            setMessage(check.message)
             setEditSuccessful(true)
-            console.log(newSong)
         }
 
     }
@@ -71,22 +79,16 @@ export default function EditSong() {
         setName(song.name)
         setSinger(song.singer)
         setGenre(song.genre)
-        setFailed(false)
-        setSuccess(false)
+        setMessage(false)
     }
 
     return (
         <div className="edit-page">
-            {failed && <MessageDialog 
-                            title="Edit songs"
-                            message="Edit failed! Please try again!"
-                            isOpen={failed}
-                            onClose={handleOnCancel}/>}
-            {success && <MessageDialog 
-                            title="Edit songs"
-                            message="Edit successfully! The song has been updated!"
-                            isOpen={success}
-                            onClose={handleOnCancel}/>}
+            {message && <MessageDialog
+                title="Edit songs"
+                message="Edit successfully! The song has been updated!"
+                isOpen={message}
+                onClose={handleOnCancel} />}
             <div className="music-player">
                 <MusicPlayerSlider song={song} />
             </div>
@@ -100,13 +102,13 @@ export default function EditSong() {
                         }}
                     >
                         <TextField fullWidth label="Song"
-                            onChange={e => handleOnSongChange(e.target.value)} 
-                            value={name} required 
+                            onChange={e => handleOnSongChange(e.target.value)}
+                            value={name} required
                         />
-                    </Box>}                   
+                    </Box>}
                 </div>
                 <div className="item-item">
-                {<Box
+                    {<Box
                         sx={{
                             width: 500,
                             maxWidth: '100%',
@@ -114,24 +116,41 @@ export default function EditSong() {
                         }}
                     >
                         <TextField fullWidth label="Singer"
-                            onChange={e => handleOnSingerChange(e.target.value)} 
-                            value={singer} required 
+                            onChange={e => handleOnSingerChange(e.target.value)}
+                            value={singer} required
                         />
                     </Box>}
                 </div>
                 <div className="item-item">
-                {<Box
+                    {/* {<Box
                         sx={{
                             width: 500,
                             maxWidth: '100%',
 
                         }}
                     >
+                        <Selection options={GENRE} onChange={e => handleOnGenreChange(e.target.value)} title="Genre" />
                         <TextField fullWidth label="Genre"
-                            onChange={e => handleOnGenreChange(e.target.value)} 
-                            value={genre} required 
+                            onChange={e => handleOnGenreChange(e.target.value)}
+                            value={genre} required
                         />
-                    </Box>}
+                    </Box>} */}
+                    <Box sx={{ minWidth: 120 }}>
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">Genre</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={genre}
+                                label="Genre"
+                                onChange={e => handleOnGenreChange(e.target.value)}
+                            >
+                                {GENRE.map(option => (
+                                    <MenuItem key={option} value={option}>{option}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Box>
                 </div>
                 <div >
                     <Button id="btn-cancel" variant="contained" color="error" startIcon={<CancelIcon />} onClick={handleOnCancel}>

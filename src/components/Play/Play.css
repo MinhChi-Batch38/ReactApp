@@ -36,7 +36,7 @@ i.play-song {
     color: aqua;
 }
 
-/* div.play {
+div.play {
     position: absolute;
     display: block;
     width: 40%;
@@ -100,26 +100,35 @@ button {
 }
 div.progress-bar {
     position: absolute;
-    width: 30%;
+    height: 10px;
+    width: 400px;
     left: 400px;
-    height: 4px;
-    top: 50px;
+    top: 45px;
+    color: #fff;
+    z-index: 10;
 }
 
 
 .time-left {
     position: absolute;
     text-align: right;
-    left: 350px;
-    top:41px;
-    color: #fff
+    left: 340px;
+    top:40px;
+    width: 45px;
+    color: #fff;
+    z-index: 1;
 }
 .time-right {
     margin-left: 10px;
     position: absolute;
     text-align: right;
-    left: 785px;
-    top:41px;
+    left: 800px;
+    top:40px;
     color: #fff
-} */
-
+}
+div.volume {
+    position: absolute;
+    width: 200px;
+    right: 100px;
+    top: 20px;
+}

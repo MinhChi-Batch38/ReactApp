@@ -15,8 +15,11 @@ async function httpGetAllSongs(kw, page, size) {
     return await res.data;
 }
 
-async function httpCountSongs() {
-    const res = await axios.get(`${API_URL}/songs/count-songs`)
+async function httpCheckSong(song, nameSinger) {
+    const res = await axios.get(`${API_URL}/songs/check-song`, {params: {
+        name: song,
+        singer: nameSinger
+    }})
     .catch (function (error) {
         console.log(error);
     })
@@ -88,7 +91,7 @@ async function httpSearchSong(kw, pageNumber, pageSize) {
 
 export {
     httpGetAllSongs,
-    httpCountSongs,
+    httpCheckSong,
     httpAddSong,
     httpEditSong,
     httpUpload,

@@ -13,7 +13,7 @@ export default function DeleteDialog({ isOpen, deleteSongs, onDeleteSuccessful, 
     const [open, setOpen] = useState(isOpen);
     const [deleteSuccessful, setDeleteSuccessful] = useState(true)
     const [end, setEnd] = useState(false)
-    const [failed, setFailed] = useState(false)
+    const [message, setMessage] =  useState(false)
     React.useEffect(() => {
         setOpen(isOpen)
     }, [isOpen])
@@ -27,15 +27,16 @@ export default function DeleteDialog({ isOpen, deleteSongs, onDeleteSuccessful, 
         if (deleteSongs.length > 0) {
             setDeleteSuccessful(false)
             const res = await httpDeleteSongs(deleteSongs)
-            if (res === 200) {
+            console.log(res)
+            if (res.status === 200) {
                 setDeleteSuccessful(true)
                 setEnd(true)
                 onDeleteSuccessful()
             } else {
                 setDeleteSuccessful(true)
-                setFailed(true)
                 setEnd(true)
             }
+            setMessage(res.message)
         }
 
     }
@@ -47,7 +48,7 @@ export default function DeleteDialog({ isOpen, deleteSongs, onDeleteSuccessful, 
                     <DialogTitle>Delete Songs</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                        <i class="fa-regular fa-circle-question" style={{paddingRight: 10}}></i>
+                        <i class="fa-regular fa-circle-question" style={{paddingRight: 10}} ></i>
                             Are you sure to delete all the songs are selected?
                         </DialogContentText>
                     </DialogContent>
@@ -74,7 +75,7 @@ export default function DeleteDialog({ isOpen, deleteSongs, onDeleteSuccessful, 
                     <DialogContent>
                         <DialogContentText>
                         <i className="fa-solid fa-circle-info" style={{paddingRight: 10}}></i>
-                            {!failed ? <p>Delete successfully!</p> : <p>Delete failed!</p>}
+                        {message}
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>

@@ -7,9 +7,13 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import audioReducer from './reducers/audioReducer';
 import searchReducer from './reducers/searchReducer';
+import playReducer from './reducers/playReducer';
+import playSongReducer from './reducers/playSongReducer';
 
 const store = configureStore({
   reducer: {
+    "play": playReducer,
+    "songPlay": playSongReducer, 
     "audio": audioReducer,
     "kw": searchReducer,
   }

@@ -17,6 +17,7 @@ import FormAdd from "../components/FormAdd/FormAdd";
 import { useEffect } from "react";
 import DeleteDialog from "../components/Dialog/DeleteDialog";
 import { useSelector } from "react-redux";
+import { GENRE } from "../Config/Constant";
 
 function DeleteFromArray(arr1, arr2) {
   for (let i = 0; i < arr1.length; i++) {
@@ -29,10 +30,12 @@ function DeleteFromArray(arr1, arr2) {
 
 function Home() {
   const kw = useSelector(state => state.kw)
+  const audio = useSelector(state => state.songPlay)
+  const play = useSelector(state => state.play)
+  const [isPlay, setIsPlay] = useState(false)
   const [pageNumber, setPageNumber] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   var initialSongs = useSongs(kw, pageNumber-1, pageSize)
-  //console.log(initialSongs)
   const [songs, setSongs] = useState([])
   const [total, setTotal] = useState(0)
   useEffect(() => {
@@ -40,16 +43,11 @@ function Home() {
     setTotal(initialSongs.totalElements)
   }, [initialSongs])
   
-  console.log(typeof(songs))
   const [deleteSongs, setDeleteSongs] = useState([])
-  const [audio, setAudio] = useState({})
   const [check, setCheck] = useState(false)
   const [addOpen, setAddOpen] = useState(false)
   const [deleteOpen, setDeleteOpen] = useState(false)
 
-  const handlePlayAudio = (audio) => {
-    setAudio(audio)
-  }
   const handleOnCheck = () => {
     check === false ? setDeleteSongs(songs) : setDeleteSongs([])
     setCheck(pre => !pre)
@@ -112,12 +110,6 @@ function Home() {
     }
   }
   const HandleOnDeleteSuccessful = () => {
-    // setDeleteSongs([])
-    // initialSongs = DeleteFromArray(ini)
-    // initialTotal = useTotal()
-    // console.log(initialSongs)
-    // setSongs(initialSongs)
-    // setTotal(initialTotal)
     setSongs(DeleteFromArray(deleteSongs, songs))
     setTotal(pre => pre - deleteSongs.length)
     setDeleteSongs([])
@@ -136,14 +128,16 @@ function Home() {
   }
 
   const HandleOnAddSong = (song) => {
-    // initialSongs = [song, ...initialSongs]
-    // initialTotal = initialTotal + 1
-    // setSongs(initialSongs)
-    // setTotal(initialTotal)
     setSongs(pre => [song, ...pre])
     setTotal(pre => pre + 1)
   }
-
+  
+  const handleOnPlay = () => {
+    setIsPlay(true)
+  }
+  const handleOnPause = () => {
+    setIsPlay(false)
+  }
   //Render
   return (
     <div>
@@ -168,7 +162,7 @@ function Home() {
             onDeleteSuccessful={HandleOnDeleteSuccessful}
             onClose={handleDeleteDialogClose} />}
         </div>
-        {
+        { total>0 ?
            <div>
             <div id="header">
               <div id="head1">
@@ -184,12 +178,11 @@ function Home() {
                     label="Age"
                     sx={{ color: "white", borderColor: "white", minHeight: 40 }}
                   >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {GENRE.map(genre => (
+                      <div key={genre}>
+                        <MenuItem value={10}>{genre}</MenuItem>
+                      </div>
+                    ))}
                   </Select>
                 </FormControl>
               </div>
@@ -199,16 +192,19 @@ function Home() {
               <table>
                 {songs && songs.map(song => (
                   <tr key={song.id}>
-                    {(song.id === audio.id) ? <Item
-                      song={song}
-                      onPlay={handlePlayAudio}
-                      checked={check}
-                      onChecked={handleOnItemCheck}
-                      onUnChecked={handleOnItemUnCheck}
-                      play={true} /> :
-                      <Item
+                      { (song.id === audio.id && play) ?
+                        <Item
                         song={song}
-                        onPlay={handlePlayAudio}
+                        onPlay={handleOnPlay}
+                        onPause={handleOnPause}
+                        checked={check}
+                        onChecked={handleOnItemCheck}
+                        onUnChecked={handleOnItemUnCheck}
+                        play={true} />:
+                        <Item
+                        song={song}
+                        onPlay={handleOnPlay}
+                        onPause={handleOnPause}
                         checked={check}
                         onChecked={handleOnItemCheck}
                         onUnChecked={handleOnItemUnCheck}
@@ -218,11 +214,11 @@ function Home() {
               </table>
             </div>
           </div> 
-          // :
-          //   <div>
-          //     <i className="no-song fa-solid fa-plus fa-6x" onClick={handleOnOpenDialog}></i>
-          //     <h2 id="no-song">There is no song to display</h2>
-          //   </div>
+          :
+            <div>
+              <i className="no-song fa-solid fa-plus fa-6x" onClick={handleOnOpenDialog}></i>
+              <h2 id="no-song">There is no song to display</h2>
+            </div>
         }
       </div>
       <div className="bottom">
@@ -237,9 +233,7 @@ function Home() {
         />
       </div>
       <div className='playing-song'>
-        <Play audio={audio.link}
-          song={audio.name}
-          singer={audio.singer} />
+        {isPlay && <Play />}
       </div>
     </div>
   );

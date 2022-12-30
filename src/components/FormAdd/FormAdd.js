@@ -10,15 +10,15 @@ import AddIcon from '@mui/icons-material/Add';
 import CancelIcon from '@mui/icons-material/Cancel';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useState } from 'react';
-import { httpAddSong, httpUpload } from '../../hooks/requests/song'
-import {GENRE, REGEXP}  from '../../Config/Constant'
+import { httpAddSong, httpUpload, httpCheckSong } from '../../hooks/requests/song'
+import { GENRE, REGEXP } from '../../Config/Constant'
 import Selection from '../Input/Selection';
 export default function FormAdd({ isOpen, onChange, onAdd }) {
     const [newSong, setNewSong] = useState({})
     const [open, setOpen] = useState(isOpen);
     const [addSuccessful, setAddSuccessful] = useState(true)
     const [end, setEnd] = useState(false)
-    const [failed, setFailed] = useState(false)
+    const [message, setMessage] = useState(false)
     const regexp = REGEXP
     React.useEffect(() => {
         setOpen(isOpen)
@@ -78,29 +78,37 @@ export default function FormAdd({ isOpen, onChange, onAdd }) {
             return
         }
         setAddSuccessful(false)
-        setNewSong(newSong)
-        const link = await httpUpload(newSong.link);
-        if (link === 404) {
-            setFailed("Unsupport file")
-            setAddSuccessful(true)
-        } else {
-            if (link !== "Unsuccessfully Uploaded!") {
-                newSong.link = link
-                const res = await httpAddSong(newSong)
-                console.log(res)
-                if (res.status !== 201) {
-                    setFailed("Can't add song")
-                    setAddSuccessful(true)
-                    setEnd(true)
-                } else {
-                    setFailed(false)
-                    setNewSong({})
-                    setAddSuccessful(true)
-                    setEnd(true)
-                    onAdd(res.song)
+        const check = await httpCheckSong(newSong.name, newSong.singer)
+        if (check.status === 200) {
+            setNewSong(newSong)
+            const link = await httpUpload(newSong.link);
+            if (link === 404) {
+                setMessage("Unsupport file")
+                setAddSuccessful(true)
+            } else {
+                if (link !== "Unsuccessfully Uploaded!") {
+                    newSong.link = link
+                    const res = await httpAddSong(newSong)
+                    console.log(res)
+                    if (res.status !== 201) {
+                        setAddSuccessful(true)
+                        setEnd(true)
+                    } else {
+                        setNewSong({})
+                        setAddSuccessful(true)
+                        setEnd(true)
+                        onAdd(res.song)
+                    }
+                    setMessage(res.message)
                 }
             }
+        } else {
+            setMessage(check.message)
+            setAddSuccessful(true)
+            setEnd(true)
         }
+
+
 
     }
 
@@ -111,13 +119,12 @@ export default function FormAdd({ isOpen, onChange, onAdd }) {
                     <DialogTitle>Add new song</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                        <i className="fa-solid fa-circle-info" style={{paddingRight: 10}}></i>
-                        To add new song, please enter all the song's information
+                            <i className="fa-solid fa-circle-info" style={{ paddingRight: 10 }}></i>
+                            To add new song, please enter all the song's information
                         </DialogContentText>
                         <Input title="Song" name="name" onChange={handleOnChange} />
                         <Input title="Singer" name="singer" onChange={handleOnChange} />
-                        <Selection options={GENRE} onChange={handleOnChange} title="Genre"/>
-                        {/* <Input title="Genre" name="genre" onChange={handleOnChange} /> */}
+                        <Selection options={GENRE} onChange={handleOnChange} title="Genre" />
                         <Input title="Audio" name="link" type="file" onChange={handleOnChange} />
                     </DialogContent>
                     <DialogActions>
@@ -142,8 +149,8 @@ export default function FormAdd({ isOpen, onChange, onAdd }) {
                     <DialogTitle>Add New Song</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                        <i className="fa-solid fa-circle-info" style={{paddingRight: 10}}></i>
-                            {!failed ? <p>Add successfully!</p> : <p>Add failed!</p>}
+                            <i className="fa-solid fa-circle-info" style={{ paddingRight: 10 }}></i>
+                            {message}
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>

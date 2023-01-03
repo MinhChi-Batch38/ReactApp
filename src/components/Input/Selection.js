@@ -4,6 +4,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import './Input.css';
 
 
 export default function Selection({ options, onChange, title }) {
@@ -16,7 +17,7 @@ export default function Selection({ options, onChange, title }) {
     return (
         <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Genre</InputLabel>
+                <InputLabel id="demo-simple-select-label">{title}</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"

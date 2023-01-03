@@ -2,3 +2,7 @@
     padding-top: 10px;
     padding-bottom: 10px;
 }
+#demo-simple-select-label {
+    font-size: large;
+    font-weight: 500;
+}

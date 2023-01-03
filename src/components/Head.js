@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./table.css"
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { LANGUAGE } from "../Config/Constant";
 
 function Head() {
     const user = JSON.parse(sessionStorage.getItem(SESSION_USER))
@@ -22,6 +23,15 @@ function Head() {
         dispatch({"type":"change", "keywords": kw})
         navigate('/home')
     }
+    const handleOnLanguageChange = value => {
+        if (value.includes('English')) {
+            dispatch({"type":"change-language", "language": LANGUAGE.en})
+        }
+        else {
+            dispatch({"type":"change-language", "language": LANGUAGE.vn})
+        }
+        
+    }
     return (
         <div className="container-header">
             <i className="fa-brands fa-soundcloud fa-4x logo" style={{ width: 100, height: 50 }}
@@ -34,8 +44,9 @@ function Head() {
             <i className="glyphicon glyphicon-user user"></i>
             {user && <label className="user">{user.username}</label>}
             <label className="language"> Language: </label>
-            <select>
+            <select onChange={e => handleOnLanguageChange(e.target.value)}>
                 <option>English</option>
+                <option>Tiếng Việt</option>
             </select>
         </div>
     );

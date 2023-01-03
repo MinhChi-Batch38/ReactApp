@@ -9,6 +9,7 @@ import audioReducer from './reducers/audioReducer';
 import searchReducer from './reducers/searchReducer';
 import playReducer from './reducers/playReducer';
 import playSongReducer from './reducers/playSongReducer';
+import languageReducer from './reducers/languageReducer';
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     "songPlay": playSongReducer, 
     "audio": audioReducer,
     "kw": searchReducer,
+    "language": languageReducer,
   }
 })
 

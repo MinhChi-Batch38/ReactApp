@@ -9,7 +9,9 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 import { httpDeleteSongs } from '../../hooks/requests/song'
+import { useSelector } from "react-redux";
 export default function DeleteDialog({ isOpen, deleteSongs, onDeleteSuccessful, onClose }) {
+    const language = useSelector(state => state.language)
     const [open, setOpen] = useState(isOpen);
     const [deleteSuccessful, setDeleteSuccessful] = useState(true)
     const [end, setEnd] = useState(false)
@@ -32,11 +34,12 @@ export default function DeleteDialog({ isOpen, deleteSongs, onDeleteSuccessful, 
                 setDeleteSuccessful(true)
                 setEnd(true)
                 onDeleteSuccessful()
+                setMessage(language.Message.Delete_200)
             } else {
                 setDeleteSuccessful(true)
                 setEnd(true)
-            }
-            setMessage(res.message)
+                setMessage(language.Message.Delete_500)
+            }          
         }
 
     }
@@ -45,20 +48,20 @@ export default function DeleteDialog({ isOpen, deleteSongs, onDeleteSuccessful, 
         <div>
             <Dialog open={open} onClose={handleClose}>
                 {end || <div>
-                    <DialogTitle>Delete Songs</DialogTitle>
+                    <DialogTitle>{language.Title.Delete}</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
                         <i class="fa-regular fa-circle-question" style={{paddingRight: 10}} ></i>
-                            Are you sure to delete all the songs are selected?
+                        {language.Title.DeleteInfo}
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
                         <Button id="btn-cancel" variant="contained"
                             color="error" onClick={handleClose}>
-                            No
+                            {language.No}
                         </Button>
                         {deleteSuccessful && <Button variant="contained" onClick={handleOnSubmit}>
-                            Yes
+                        {language.Yes}
                         </Button>}
                         {deleteSuccessful || <LoadingButton
                             loading
@@ -71,7 +74,7 @@ export default function DeleteDialog({ isOpen, deleteSongs, onDeleteSuccessful, 
                     </DialogActions>
                 </div>}
                 {end && <div>
-                    <DialogTitle>Delete Songs</DialogTitle>
+                    <DialogTitle>{language.Title.Delete}</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
                         <i className="fa-solid fa-circle-info" style={{paddingRight: 10}}></i>

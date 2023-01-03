@@ -13,7 +13,9 @@ import { useState } from 'react';
 import { httpAddSong, httpUpload, httpCheckSong } from '../../hooks/requests/song'
 import { GENRE, REGEXP } from '../../Config/Constant'
 import Selection from '../Input/Selection';
+import { useSelector } from "react-redux";
 export default function FormAdd({ isOpen, onChange, onAdd }) {
+    const language = useSelector(state => state.language)
     const [newSong, setNewSong] = useState({})
     const [open, setOpen] = useState(isOpen);
     const [addSuccessful, setAddSuccessful] = useState(true)
@@ -30,7 +32,7 @@ export default function FormAdd({ isOpen, onChange, onAdd }) {
         onChange();
     };
     const handleOnChange = (title, value) => {
-        if (title === "Song") {
+        if (title === language.Name) {
             // song.name = value
 
             setNewSong(pre => {
@@ -38,14 +40,14 @@ export default function FormAdd({ isOpen, onChange, onAdd }) {
                 return pre
             })
         }
-        if (title === "Singer") {
+        if (title === language.Singer) {
             // song.singer = value
             setNewSong(pre => {
                 pre.singer = value
                 return pre
             })
         }
-        if (title === "Genre") {
+        if (title === language.Genre) {
             // song.genre = value
             setNewSong(pre => {
                 pre.genre = value
@@ -93,17 +95,24 @@ export default function FormAdd({ isOpen, onChange, onAdd }) {
                     if (res.status !== 201) {
                         setAddSuccessful(true)
                         setEnd(true)
+                        setMessage(language.Message.Add_404)
                     } else {
                         setNewSong({})
                         setAddSuccessful(true)
                         setEnd(true)
                         onAdd(res.song)
+                        setMessage(language.Message.Add_201)
                     }
-                    setMessage(res.message)
+                    
+                }
+                else {
+                    setAddSuccessful(true)
+                    setEnd(true)
+                    setMessage(language.Message.Add_404)
                 }
             }
         } else {
-            setMessage(check.message)
+            setMessage(language.Message.Check_404)
             setAddSuccessful(true)
             setEnd(true)
         }
@@ -116,24 +125,24 @@ export default function FormAdd({ isOpen, onChange, onAdd }) {
         <div>
             <Dialog open={open} onClose={handleClose}>
                 {end || <div>
-                    <DialogTitle>Add new song</DialogTitle>
+                    <DialogTitle>{language.Title.Add}</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
                             <i className="fa-solid fa-circle-info" style={{ paddingRight: 10 }}></i>
-                            To add new song, please enter all the song's information
+                            {language.Title.AddInfo}
                         </DialogContentText>
-                        <Input title="Song" name="name" onChange={handleOnChange} />
-                        <Input title="Singer" name="singer" onChange={handleOnChange} />
-                        <Selection options={GENRE} onChange={handleOnChange} title="Genre" />
+                        <Input title={language.Name} name="name" onChange={handleOnChange} />
+                        <Input title={language.Singer} name="singer" onChange={handleOnChange} />
+                        <Selection options={GENRE} onChange={handleOnChange} title={language.Genre} />
                         <Input title="Audio" name="link" type="file" onChange={handleOnChange} />
                     </DialogContent>
                     <DialogActions>
                         <Button id="btn-cancel" variant="contained"
                             color="error" startIcon={<CancelIcon />} onClick={handleClose}>
-                            Cancel
+                            {language.Cancel}
                         </Button>
                         {addSuccessful && <Button variant="contained" startIcon={<AddIcon />} onClick={handleOnSubmit}>
-                            Add
+                            {language.Add}
                         </Button>}
                         {addSuccessful || <LoadingButton
                             loading
@@ -146,7 +155,7 @@ export default function FormAdd({ isOpen, onChange, onAdd }) {
                     </DialogActions>
                 </div>}
                 {end && <div>
-                    <DialogTitle>Add New Song</DialogTitle>
+                    <DialogTitle>{language.Title.Add}</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
                             <i className="fa-solid fa-circle-info" style={{ paddingRight: 10 }}></i>

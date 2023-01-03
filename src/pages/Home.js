@@ -29,6 +29,7 @@ function DeleteFromArray(arr1, arr2) {
 }
 
 function Home() {
+  const language = useSelector(state => state.language)
   const kw = useSelector(state => state.kw)
   const audio = useSelector(state => state.songPlay)
   const play = useSelector(state => state.play)
@@ -168,10 +169,10 @@ function Home() {
               <div id="head1">
                 <input type="checkbox" onClick={handleOnCheck} />
               </div>
-              <div id="head2">Name</div>
+              <div id="head2">{language.Name}</div>
               <div id="head3">
                 <FormControl sx={{ minWidth: 120, borderColor: "white" }} size="small">
-                  <InputLabel id="demo-select-small" sx={{ color: "white", borderColor: "white" }}>Genre</InputLabel>
+                  <InputLabel id="demo-select-small" sx={{ color: "white", borderColor: "white" }}>{language.Genre}</InputLabel>
                   <Select
                     labelId="demo-select-small"
                     id="demo-select-small"
@@ -186,7 +187,7 @@ function Home() {
                   </Select>
                 </FormControl>
               </div>
-              <div id="head4">Actions</div>
+              <div id="head4">{language.Action}</div>
             </div>
             <div id="tbody">
               <table>

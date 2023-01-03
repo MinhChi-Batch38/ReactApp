@@ -10,29 +10,33 @@ label {
     color: aliceblue;
 }
 
-label.selected {
+.paging {
     position: absolute;
+    left: 650px;
+    display: inline-flex;
+}
+
+label.selected {
+    position: relative;
     width: 200px;
     top: 50px;
     left: 40px;
     font-size: medium;
+    margin-right: 30px
 }
 
 label.page-size {
-    position: absolute;
-    width: 80px;
-    top: 35px;
-    left: 685px;
+    position: relative;
     font-size: medium;
+    top: 35px;
 }
 
 select.page {
-    position: absolute;
-    width: 80px;
+    position: relative;
     height: 35px;
-    bottom: 10px;
-    left: 770px;
+    margin-left: 20px;
 }
+
 
 .pagination {
     color: black;
@@ -43,20 +47,17 @@ select.page {
     align-content: center;
 }
 .previous {
-    position: absolute;
+    position: relative;
     width: 40px;
     height: 35px;
-    left: 870px;
     top: 10px;
-    text-align: center;
     background-color:aliceblue ;
 }
 
 .next {
-    position: absolute;
+    position: relative;
     width: 40px;
     height: 35px;
-    left: 950px;
     top: 10px;
     background-color: aliceblue;
 }
@@ -66,10 +67,9 @@ select.page {
 }
 
 input.page {
-    position: absolute;
+    position: relative;
     width: 40px;
     height: 35px;
     top: 30px;
-    left: 910px;
     text-align: center;
 }

@@ -27,6 +27,7 @@ function setNewSong(song, name, singer, genre) {
 }
 
 export default function EditSong() {
+    const language = useSelector(state => state.language)
     const song = useSelector(state => state.audio)
     const [name, setName] = useState(song.name)
     const [singer, setSinger] = useState(song.singer)
@@ -64,12 +65,14 @@ export default function EditSong() {
             console.log(res.song)
             if (res.status !== 200) {         
                 setEditSuccessful(true)
+                setMessage(language.Message.Edit_404)
             } else {
                 setEditSuccessful(true)
+                setMessage(language.Message.Edit_200)
             }
-            setMessage(res.message)
+            
         } else {
-            setMessage(check.message)
+            setMessage(language.Message.Check_404)
             setEditSuccessful(true)
         }
 
@@ -86,7 +89,7 @@ export default function EditSong() {
         <div className="edit-page">
             {message && <MessageDialog
                 title="Edit songs"
-                message="Edit successfully! The song has been updated!"
+                message={message}
                 isOpen={message}
                 onClose={handleOnCancel} />}
             <div className="music-player">
@@ -101,7 +104,7 @@ export default function EditSong() {
 
                         }}
                     >
-                        <TextField fullWidth label="Song"
+                        <TextField fullWidth label={language.Name}
                             onChange={e => handleOnSongChange(e.target.value)}
                             value={name} required
                         />
@@ -115,7 +118,7 @@ export default function EditSong() {
 
                         }}
                     >
-                        <TextField fullWidth label="Singer"
+                        <TextField fullWidth label={language.Singer}
                             onChange={e => handleOnSingerChange(e.target.value)}
                             value={singer} required
                         />
@@ -137,7 +140,7 @@ export default function EditSong() {
                     </Box>} */}
                     <Box sx={{ minWidth: 120 }}>
                         <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">Genre</InputLabel>
+                            <InputLabel id="demo-simple-select-label">{language.Genre}</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -154,10 +157,10 @@ export default function EditSong() {
                 </div>
                 <div >
                     <Button id="btn-cancel" variant="contained" color="error" startIcon={<CancelIcon />} onClick={handleOnCancel}>
-                        Cancel
+                        {language.Cancel}
                     </Button>
                     {editSuccessful && <Button id="btn-edit" variant="contained" startIcon={<EditIcon />} onClick={handleOnSubmit}>
-                        Save
+                        {language.Save}
                     </Button>}
                     {editSuccessful || <LoadingButton
                         id="btn-edit"

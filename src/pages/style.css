@@ -150,8 +150,9 @@ td {
 
 #header #head3 {
     width: 185px;
-    font-size: medium;
+    font-size: large;
     text-align: left;
+    font-weight: 500;
     color: white;
 }
 
@@ -159,7 +160,8 @@ td {
 /* the same as td2 */
 #header #head4 {
     float: none;    
-    font-size: medium;  
+    font-size: large; 
+    font-weight: 500; 
     text-align: left;
 }
 

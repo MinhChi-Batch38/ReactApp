@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from "react-redux";
 import './Bottom.css'
 
 function Bottom(props) {
+    const language = useSelector(state => state.language)
     const [page, setPage] = useState(props.pageNumber)
     useEffect(() => {
         setPage(props.pageNumber)
@@ -15,9 +17,10 @@ function Bottom(props) {
   
     return (
         <div >
-            <label className="total">Total Items: {props.total}</label>
-            <label className="selected">Selected Items: {props.selected}</label>
-            <label className="page-size">Page size: </label>
+            <label className="total">{language.Total}: {props.total}</label>
+            <label className="selected">{language.Select}: {props.selected}</label>
+            <div className='paging'>
+            <label className="page-size">{language.PageSize}: </label>
             <select className='page' onChange={e => props.selectOnchange(e.target.value)} defaultValue={10}>
                 <option>5</option>
                 <option>10</option>
@@ -28,6 +31,8 @@ function Bottom(props) {
                 <button className='pagination previous' onClick={e => props.previousPageClick(e.target.value)}>❮</button>
                 <input className="page" onChange={e => handleInputOnChange(e.target.value)} value={page}></input>
                 <button className='pagination next' onClick={e => props.nextPageClick(e.target.value)}>❯</button>
+            </div>
+            
 
         </div>
     );

@@ -3,8 +3,12 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import { useSelector } from "react-redux";
+
 function Input({title, name, type, value, onChange}){
 
+    const language = useSelector(state => state.language)
     return (
         <div className='input-component'>
             {/* <label className='title'>{title}: </label> */}
@@ -19,7 +23,13 @@ function Input({title, name, type, value, onChange}){
         //     Upload
         //     <input type={type} className="upload-audio" id={name} name={name} hidden accept="audio/mpeg" onChange={(e)=>onChange(title, e.target.files[0])} value={value} required/> 
         //   </Button>
-            <input type={type} id={name} name={name} accept="audio/mpeg" onChange={(e)=>onChange(title, e.target.files[0])} value={value} required/> 
+        <Stack direction="row" alignItems="center" spacing={2}>
+        <Button variant="contained" component="label">
+          {language.Upload}
+          <input type={type} hidden id={name} name={name} accept="audio/mpeg" onChange={(e)=>onChange(title, e.target.files[0])} value={value} required/> 
+        </Button>
+        </Stack>
+            
             :
             <Box
                 sx={{

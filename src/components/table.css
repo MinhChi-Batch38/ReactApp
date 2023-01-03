@@ -13,7 +13,7 @@ i.user {
 }
 .language {
     position: absolute;
-    right: 100px;
+    right: 105px;
     top: 30px;
     width: 100px;
     color: aliceblue;
@@ -21,7 +21,7 @@ i.user {
 }
 select {
     position: absolute;
-    right: 20px;
+    right: 15px;
     top: 30px;
 }
 

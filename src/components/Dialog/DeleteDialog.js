@@ -56,10 +56,11 @@ export default function DeleteDialog({ isOpen, deleteSongs, onDeleteSuccessful, 
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button id="btn-cancel" variant="contained"
-                            color="error" onClick={handleClose}>
-                            {language.No}
-                        </Button>
+                        
+                         <Button id="btn-cancel" variant="contained" disabled={!deleteSuccessful}
+                         color="error" onClick={handleClose}>
+                         {language.No}
+                     </Button>
                         {deleteSuccessful && <Button variant="contained" onClick={handleOnSubmit}>
                         {language.Yes}
                         </Button>}

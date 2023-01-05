@@ -15,6 +15,10 @@ const PRASES = {
         en: 'Language',
         vn: 'Ngôn ngữ'
     },
+    ChosenLanguage: {
+        en: 'English',
+        vn: 'Tiếng Việt'
+    },
     Search: {
         en: 'Search',
         vn: 'Tìm kiếm'
@@ -46,6 +50,11 @@ const PRASES = {
     Save: {
         en: 'Save',
         vn: 'Lưu'
+    },
+    
+    Edit: {
+        en: 'Edit',
+        vn: 'Chỉnh sửa'
     },
     Cancel: {
         en: 'Cancel',
@@ -129,13 +138,15 @@ const LANGUAGE = {
         Yes: PRASES.Yes.en,
         No: PRASES.No.en,
         Language: PRASES.Language.en,
-        Search: PRASES.Language.en,
+        ChosenLanguage: PRASES.ChosenLanguage.en,
+        Search: PRASES.Search.en,
         Name: PRASES.Name.en,
         Genre: PRASES.Genre.en,
         Action: PRASES.Action.en,
         Song: PRASES.Song.en,
         Singer: PRASES.Singer.en,
         Add: PRASES.Add.en,
+        Edit: PRASES.Edit.en,
         Save: PRASES.Save.en,
         Cancel: PRASES.Cancel.en,
         Upload: PRASES.Upload.en,
@@ -151,26 +162,28 @@ const LANGUAGE = {
         Message: {
             Add_201: MESSAGE.Add_201.en,
             Add_404: MESSAGE.Add_404.en,
-            check_404: MESSAGE.check_404.en,
-            check_500: MESSAGE.check_500.en,
-            edit_404: MESSAGE.edit_404.en,
-            edit_200: MESSAGE.edit_200.en,
-            delete_500: MESSAGE.delete_500.en,
-            delete_200: MESSAGE.delete_200.en,
+            Check_404: MESSAGE.check_404.en,
+            Check_500: MESSAGE.check_500.en,
+            Edit_404: MESSAGE.edit_404.en,
+            Edit_200: MESSAGE.edit_200.en,
+            Delete_500: MESSAGE.delete_500.en,
+            Delete_200: MESSAGE.delete_200.en,
         }
 
     },
     vn: {
         Yes: PRASES.Yes.vn,
         No: PRASES.No.vn,
+        ChosenLanguage: PRASES.ChosenLanguage.vn,
         Language: PRASES.Language.vn,
-        Search: PRASES.Language.vn,
+        Search: PRASES.Search.vn,
         Name: PRASES.Name.vn,
         Genre: PRASES.Genre.vn,
         Action: PRASES.Action.vn,
         Song: PRASES.Song.vn,
         Singer: PRASES.Singer.vn,
         Add: PRASES.Add.vn,
+        Edit: PRASES.Edit.vn,
         Save: PRASES.Save.vn,
         Cancel: PRASES.Cancel.vn,
         Upload: PRASES.Upload.vn,

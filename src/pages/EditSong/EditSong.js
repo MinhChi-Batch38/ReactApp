@@ -9,12 +9,8 @@ import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { httpEditSong, httpCheckSong } from "../../hooks/requests/song";
-import { REGEXP, GENRE } from "../../Config/Constant";
+import { REGEXP } from "../../Config/Constant";
 import MessageDialog from "../../components/Dialog/MessageDialog";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 
 const regexp = REGEXP
 
@@ -34,6 +30,7 @@ export default function EditSong() {
     const [genre, setGenre] = useState(song.genre)
     const [editSuccessful, setEditSuccessful] = useState(true)
     const [message, setMessage] = useState(false)
+    const [editing, setEditing] = useState(false)
 
     const handleOnSongChange = (value) => {
         setName(value)
@@ -83,6 +80,10 @@ export default function EditSong() {
         setSinger(song.singer)
         setGenre(song.genre)
         setMessage(false)
+        setEditing(false)
+    }
+    const handleOnEditing = () => {
+        setEditing(true)
     }
 
     return (
@@ -104,7 +105,7 @@ export default function EditSong() {
 
                         }}
                     >
-                        <TextField fullWidth label={language.Name}
+                        <TextField fullWidth label={language.Name} disabled={!editing}
                             onChange={e => handleOnSongChange(e.target.value)}
                             value={name} required
                         />
@@ -118,27 +119,26 @@ export default function EditSong() {
 
                         }}
                     >
-                        <TextField fullWidth label={language.Singer}
+                        <TextField fullWidth label={language.Singer} disabled={!editing}
                             onChange={e => handleOnSingerChange(e.target.value)}
                             value={singer} required
                         />
                     </Box>}
                 </div>
                 <div className="item-item">
-                    {/* {<Box
+                    {<Box
                         sx={{
                             width: 500,
                             maxWidth: '100%',
 
                         }}
-                    >
-                        <Selection options={GENRE} onChange={e => handleOnGenreChange(e.target.value)} title="Genre" />
-                        <TextField fullWidth label="Genre"
+                    >                        
+                        <TextField fullWidth label={language.Genre} disabled={!editing}
                             onChange={e => handleOnGenreChange(e.target.value)}
                             value={genre} required
                         />
-                    </Box>} */}
-                    <Box sx={{ minWidth: 120 }}>
+                    </Box>}
+                    {/* {<Box sx={{ minWidth: 120 }}>
                         <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">{language.Genre}</InputLabel>
                             <Select
@@ -153,16 +153,21 @@ export default function EditSong() {
                                 ))}
                             </Select>
                         </FormControl>
-                    </Box>
+                    </Box>} */}
                 </div>
                 <div >
-                    <Button id="btn-cancel" variant="contained" color="error" startIcon={<CancelIcon />} onClick={handleOnCancel}>
-                        {language.Cancel}
-                    </Button>
-                    {editSuccessful && <Button id="btn-edit" variant="contained" startIcon={<EditIcon />} onClick={handleOnSubmit}>
-                        {language.Save}
+                    {editing || <Button id="btn-editing" variant="contained" startIcon={<EditIcon />} onClick={handleOnEditing}>
+                        {language.Edit}
                     </Button>}
-                    {editSuccessful || <LoadingButton
+                    {(editing) && <Button id="btn-cancel" variant="contained" disabled={!editSuccessful}
+                    color="error" startIcon={<CancelIcon />} onClick={handleOnCancel}>
+                        {language.Cancel}
+                    </Button>}
+                    {(editSuccessful && editing) && <Button id="btn-edit" variant="contained" startIcon={<EditIcon />} onClick={handleOnSubmit}>
+                        {language.Save}
+                    </Button>
+                    }
+                    {(editSuccessful) || <LoadingButton
                         id="btn-edit"
                         loading
                         loadingPosition="start"

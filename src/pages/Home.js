@@ -1,10 +1,6 @@
 import "./style.css"
 import Item from "../components/Item/Item";
 import Bottom from "../components/Bottom/Bottom";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import { useSongs } from "../hooks/use/useSongs";
 import { useState } from "react";
 import Play from "../components/Play/Play";
@@ -17,7 +13,6 @@ import FormAdd from "../components/FormAdd/FormAdd";
 import { useEffect } from "react";
 import DeleteDialog from "../components/Dialog/DeleteDialog";
 import { useSelector } from "react-redux";
-import { GENRE } from "../Config/Constant";
 
 function DeleteFromArray(arr1, arr2) {
   for (let i = 0; i < arr1.length; i++) {
@@ -167,25 +162,11 @@ function Home() {
            <div>
             <div id="header">
               <div id="head1">
-                <input type="checkbox" onClick={handleOnCheck} />
+                <input type="checkbox" onClick={handleOnCheck} checked={check}/>
               </div>
               <div id="head2">{language.Name}</div>
               <div id="head3">
-                <FormControl sx={{ minWidth: 120, borderColor: "white" }} size="small">
-                  <InputLabel id="demo-select-small" sx={{ color: "white", borderColor: "white" }}>{language.Genre}</InputLabel>
-                  <Select
-                    labelId="demo-select-small"
-                    id="demo-select-small"
-                    label="Age"
-                    sx={{ color: "white", borderColor: "white", minHeight: 40 }}
-                  >
-                    {GENRE.map(genre => (
-                      <div key={genre}>
-                        <MenuItem value={10}>{genre}</MenuItem>
-                      </div>
-                    ))}
-                  </Select>
-                </FormControl>
+              {language.Genre}
               </div>
               <div id="head4">{language.Action}</div>
             </div>

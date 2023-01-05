@@ -11,11 +11,11 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useState } from 'react';
 import { httpAddSong, httpUpload, httpCheckSong } from '../../hooks/requests/song'
-import { GENRE, REGEXP } from '../../Config/Constant'
-import Selection from '../Input/Selection';
+import { REGEXP } from '../../Config/Constant'
 import { useSelector } from "react-redux";
 export default function FormAdd({ isOpen, onChange, onAdd }) {
     const language = useSelector(state => state.language)
+    const [audio, setAudio] = useState({})
     const [newSong, setNewSong] = useState({})
     const [open, setOpen] = useState(isOpen);
     const [addSuccessful, setAddSuccessful] = useState(true)
@@ -58,6 +58,7 @@ export default function FormAdd({ isOpen, onChange, onAdd }) {
             // song.link = value
             var ext = value.name.substr(value.name.lastIndexOf('.'))
             if (ext.includes('mp3')) {
+                setAudio(value)
                 setNewSong(pre => {
                     pre.link = value
                     return pre
@@ -103,7 +104,7 @@ export default function FormAdd({ isOpen, onChange, onAdd }) {
                         onAdd(res.song)
                         setMessage(language.Message.Add_201)
                     }
-                    
+
                 }
                 else {
                     setAddSuccessful(true)
@@ -133,17 +134,20 @@ export default function FormAdd({ isOpen, onChange, onAdd }) {
                         </DialogContentText>
                         <Input title={language.Name} name="name" onChange={handleOnChange} />
                         <Input title={language.Singer} name="singer" onChange={handleOnChange} />
-                        <Selection options={GENRE} onChange={handleOnChange} title={language.Genre} />
+                        <Input title={language.Genre} name="genre" onChange={handleOnChange} />
+                        {/* <Selection options={GENRE} onChange={handleOnChange} title={language.Genre} /> */}
                         <Input title="Audio" name="link" type="file" onChange={handleOnChange} />
+                        {audio && <span>{audio.name}</span>}
                     </DialogContent>
                     <DialogActions>
-                        <Button id="btn-cancel" variant="contained"
+                        <Button id="btn-cancel" variant="contained" disabled={!addSuccessful}
                             color="error" startIcon={<CancelIcon />} onClick={handleClose}>
                             {language.Cancel}
                         </Button>
-                        {addSuccessful && <Button variant="contained" startIcon={<AddIcon />} onClick={handleOnSubmit}>
-                            {language.Add}
-                        </Button>}
+                        {addSuccessful &&
+                            <Button variant="contained" startIcon={<AddIcon />} onClick={handleOnSubmit}>
+                                {language.Add}
+                            </Button>}
                         {addSuccessful || <LoadingButton
                             loading
                             loadingPosition="start"
